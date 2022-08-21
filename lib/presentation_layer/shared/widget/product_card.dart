@@ -38,19 +38,16 @@ Widget productCard({
                       title,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                            color: ColorManager.black,
-                            fontWeight: FontWeight.w500,
-                          ),
+                      style: Theme.of(context).textTheme.headline1,
                     ),
                     const SizedBox(
                       height: 5,
                     ),
                     Text(
                       price,
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                            color: ColorManager.black,
-                          ),
+                      style: Theme.of(context).textTheme.headline1!.copyWith(
+                        fontSize: 12,
+                      )
                     ),
                     const SizedBox(
                       height: 5,
@@ -59,7 +56,8 @@ Widget productCard({
                       padding: const EdgeInsets.only(top: 5.0, bottom: 10),
                       child: DefaultButton(
                         onTap: tapToCard,
-                        buttonLabel: "Add To Card",
+                        label:"Add To Card",
+                        labelStyle:Theme.of(context).textTheme.button ,
                         borderRadius: 10,
                         height: 45,
                         buttonColor: Theme.of(context).primaryColor,
@@ -75,10 +73,11 @@ Widget productCard({
           left: -5,
           child: Image.asset(imageURL),
         ),
-        Align(
-          alignment: Alignment.center,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
+        Positioned(
+          top: 15,
+          right:10,
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.3,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -100,9 +99,7 @@ Widget productCard({
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     quantity,
-                    style: Theme.of(context).textTheme.button!.copyWith(
-                          color: ColorManager.black,
-                        ),
+                    style: Theme.of(context).textTheme.headline2
                   ),
                 ),
                 Material(

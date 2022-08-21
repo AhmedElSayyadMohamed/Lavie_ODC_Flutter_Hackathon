@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:lavie/data_layer/cach_helper/cach_helper.dart';
-import 'package:lavie/presentation_layer/shared/style/icon/icon_broken.dart';
 import 'package:lavie/presentation_layer/shared/widget/recent_search_item.dart';
 import 'package:lavie/presentation_layer/shared/widget/search_bar.dart';
 
 import '../../shared/component/default_navigation.dart';
 
 class SearchScreen extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     // history.addAll(CachHelper.getData(key: "searchHistory"));
@@ -26,11 +25,14 @@ class SearchScreen extends StatelessWidget {
                   },
                   icon: const Icon(Icons.arrow_back),
                 ),
-                searchBar(
-                  context: context,
-                  onSubmitted: (value) {
-                    print(value);
-                  },
+                Expanded(
+                  child: searchBar(
+                    context: context,
+                      enabled:true,
+                    onSubmitted: (value) {
+                      print(value);
+                    }, searchController: null,
+                  ),
                 ),
               ],
             ),

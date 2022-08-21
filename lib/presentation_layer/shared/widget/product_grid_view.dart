@@ -30,6 +30,6 @@ Widget productGridView({
       quantity: quantity,
       imageURL: imageURL,
     ),
-    itemCount: 8,
+    itemCount: 10,
   );
 }

@@ -12,7 +12,7 @@ var emailController = TextEditingController();
 var passwordController = TextEditingController();
 var formKey = GlobalKey<FormState>();
 
-Widget loginWidget({
+Widget loginScreen({
   required BuildContext context,
   required bool isPasswordObSecure,
   required onTapOnSecureEye,
@@ -108,14 +108,15 @@ Widget loginWidget({
                 : DefaultButton(
                     onTap: () {
                       if (formKey.currentState!.validate()) {
-                        cubit.userSignIn(
+                        cubit.userLogin(
                           email: emailController.text,
                           password: passwordController.text,
                           context: context,
                         );
                       }
                     },
-                    buttonLabel: "Login",
+                    label:"Login",
+                    labelStyle: Theme.of(context).textTheme.button,
                     buttonColor: Theme.of(context).primaryColor,
                     borderRadius: 5,
                     height: 50,

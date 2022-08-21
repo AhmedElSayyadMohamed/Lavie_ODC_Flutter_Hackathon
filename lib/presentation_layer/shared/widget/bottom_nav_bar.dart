@@ -13,7 +13,7 @@ Widget bottomNavBar({
     child: CurvedNavigationBar(
       color: Theme.of(context).backgroundColor,
       backgroundColor: Theme.of(context).primaryColor.withOpacity(0.1),
-      buttonBackgroundColor: Theme.of(context).primaryColor.withOpacity(0.7),
+      buttonBackgroundColor: Theme.of(context).primaryColor,
       animationCurve: Curves.decelerate,
       index: cubit.currentBottomNavIndex,
       items: const [

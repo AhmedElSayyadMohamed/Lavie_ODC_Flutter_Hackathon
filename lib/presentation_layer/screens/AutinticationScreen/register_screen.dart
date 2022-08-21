@@ -13,7 +13,7 @@ var passwordController = TextEditingController();
 var confirmPasswordController = TextEditingController();
 var formKey = GlobalKey<FormState>();
 
-Widget signUpWidget({
+Widget signUpScreen({
   required BuildContext context,
   required isPasswordObSecure,
   required onTapOnSecureEye,
@@ -154,7 +154,8 @@ Widget signUpWidget({
                         );
                       }
                     },
-                    buttonLabel: "SignUp",
+                    label:  "SignUp",
+                    labelStyle: Theme.of(context).textTheme.button,
                     buttonColor: Theme.of(context).primaryColor,
                     borderRadius: 5,
                     height: 50,

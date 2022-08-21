@@ -8,7 +8,8 @@ class DefaultButton extends StatelessWidget {
   final double borderRadius;
   final Color buttonColor;
   final Color borderColor;
-  final String buttonLabel;
+  final String label;
+  final TextStyle ?labelStyle;
   final bool addLogo;
   final String logoImage;
   bool islabeled;
@@ -21,7 +22,8 @@ class DefaultButton extends StatelessWidget {
     this.borderRadius = 0,
     this.buttonColor = Colors.blue,
     this.borderColor = Colors.white,
-   this.buttonLabel ="",
+    this.label ="",
+    this.labelStyle,
     this.addLogo = false,
     this.logoImage = "",
   }) : super(key: key);
@@ -50,16 +52,14 @@ class DefaultButton extends StatelessWidget {
                     height: 25,
                   ),
                  islabeled? Text(
-                    buttonLabel,
-                    style: Theme.of(context).textTheme.button,
+                    label,
+                    style: labelStyle,
                   ):const SizedBox(),
                 ],
               )
             : Text(
-                buttonLabel,
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      color: ColorManager.white,
-                    ),
+                label,
+                style: labelStyle,
               ),
       ),
     );

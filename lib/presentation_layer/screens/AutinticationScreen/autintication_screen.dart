@@ -104,20 +104,20 @@ class AuthenticationScreen extends StatelessWidget {
                               child: TabBarView(
                                 physics: const BouncingScrollPhysics(),
                                 children: [
-                                  signUpWidget(
+                                  signUpScreen(
                                     context: context,
                                     isPasswordObSecure: cubit.isSignUpSecure,
                                     onTapOnSecureEye: () {
-                                      cubit.toggelSignUpEyesOfPassword();
+                                      cubit.toggleSignUpEyesOfPassword();
                                     },
                                     onFieldSubmitted: (value) {},
                                     onTapOnforgotPassword: () {},
                                   ),
-                                  loginWidget(
+                                  loginScreen(
                                     context: context,
-                                    isPasswordObSecure: cubit.isloginSecure,
+                                    isPasswordObSecure: cubit.isLoginSecure,
                                     onTapOnSecureEye: () {
-                                      cubit.toggelLoginEyesOfPassword();
+                                      cubit.toggleLoginEyesOfPassword();
                                     },
                                     onFieldSubmitted: (value) {},
                                     onTapOnforgotPassword: () {},

@@ -27,11 +27,27 @@ ThemeData lightTheme = ThemeData(
       fontWeight: FontWeight.w400,
       color: ColorManager.lightGrey,
     ),
+    subtitle2:GoogleFonts.roboto(
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+      color: ColorManager.lightGrey,
+    ),
+    headline1:GoogleFonts.roboto(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: ColorManager.black,
+  ) ,
+    headline2:GoogleFonts.roboto(
+      fontSize: 18,
+      fontWeight: FontWeight.w600,
+      color: ColorManager.black,
+    ) ,
     headline3:GoogleFonts.roboto(
-      fontSize: 20,
+      fontSize: 16,
       fontWeight: FontWeight.w600,
       color: ColorManager.black,
     ),
+
     caption: GoogleFonts.poppins(
       fontSize: 14,
       fontWeight: FontWeight.w500,
@@ -46,7 +62,7 @@ ThemeData lightTheme = ThemeData(
     color: ColorManager.whiteAccent,
   ),
   cardTheme: CardTheme(
-    color: ColorManager.lightWhite,
+    color: ColorManager.white,
     // shadowColor: Colors.blueAccent,
     elevation: 5,
   ),
@@ -64,4 +80,7 @@ ThemeData lightTheme = ThemeData(
     color: ColorManager.grey,
   )
   ),
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+    backgroundColor: ColorManager.primary,
+  )
 );
