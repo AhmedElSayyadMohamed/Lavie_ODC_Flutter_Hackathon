@@ -2,7 +2,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../style/icon/icon_broken.dart';
 
 Widget postItem({
   required BuildContext context,
@@ -110,7 +109,9 @@ Widget postItem({
           child: CachedNetworkImage(
             imageUrl:postImage,
             fit: BoxFit.cover,
-            placeholder: (context, url) =>Image.asset("assets/images/tree.png"),
+            placeholder: (context, url) =>Center(child: CircularProgressIndicator(
+              color: Theme.of(context).primaryColor,
+            )),
             errorWidget: (context, url, error) => const Icon(Icons.error),
           ),
         ):const SizedBox(),

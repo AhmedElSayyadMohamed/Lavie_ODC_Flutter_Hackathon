@@ -20,7 +20,7 @@ Widget signUpScreen({
   required onFieldSubmitted,
   required onTapOnforgotPassword,
 }) {
-  var cubit = AuthonticationCubit.get(context);
+  var cubit = AuthenticationCubit.get(context);
   return Padding(
     padding:  EdgeInsetsDirectional.only(
       start: 40.w,
@@ -135,7 +135,7 @@ Widget signUpScreen({
             SizedBox(
               height: 10.h,
             ),
-            cubit.state is AuthonticationLoadingState
+            cubit.state is AuthenticationLoadingState
                 ? Center(
                     child: CircularProgressIndicator(
                       color: Theme.of(context).primaryColor,

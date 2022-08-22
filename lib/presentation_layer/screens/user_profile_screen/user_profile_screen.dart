@@ -1,106 +1,265 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lavie/data_layer/bloc/GeneralCubit/general_cubit.dart';
+import 'package:lavie/data_layer/bloc/GeneralCubit/general_states.dart';
+import 'package:lavie/data_layer/cach_helper/cach_helper.dart';
+import 'package:lavie/presentation_layer/shared/component/default_navigation.dart';
+import 'package:lavie/presentation_layer/shared/constant/constant.dart';
+import 'package:lavie/presentation_layer/shared/resources/assets_manger.dart';
 import 'package:lavie/presentation_layer/shared/resources/color_manager.dart';
+import '../../../application_layer/routes_manager.dart';
+import '../../models/user_model.dart';
+import '../../shared/component/default_button.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(children: [
-            SizedBox(
-              width: double.infinity,
-              height: MediaQuery.of(context).size.height * 0.4,
-              child: Image.asset("assets/images/tree2.png"),
-            ),
-            Container(
-                width: double.infinity,
-                color: ColorManager.black.withOpacity(0.7),
-                height: MediaQuery.of(context).size.height * 0.4,
-                child: Center(
-                  child: InkWell(
-                    onTap: () {},
-                    child: Container(
-                      height: 130,
-                      width: 130,
-                      decoration: BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.circular(500),
+    return BlocConsumer<GeneralLavieCubit,GeneralLavieStates>(
+
+      listener: (context,state){},
+      builder: (context,state){
+        var cubit =GeneralLavieCubit.get(context);
+        return  Scaffold(
+          backgroundColor:ColorManager.black ,
+          body: SafeArea(
+            child: state is GetUserDataLoadingState?
+                Center(
+                    child: CircularProgressIndicator(
+                  color: Theme.of(context).primaryColor,
+                ),
+                )
+                :Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Stack(
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      height: MediaQuery.of(context).size.height * 0.37,
+                      child:CachedNetworkImage(
+                        fit: BoxFit.cover,
+                        imageUrl:UserModel.getImageUrl(),
+                        placeholder: (context, url) => Center(
+                          child: CircularProgressIndicator(
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                        errorWidget: (context, url, error) =>const Icon(Icons.error),
                       ),
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      child: false
-                          ? const Center(child: CircularProgressIndicator())
-                          : CachedNetworkImage(
+                    ),
+                    Container(
+                      width: double.infinity,
+                      color: ColorManager.black.withOpacity(0.9),
+                      height: MediaQuery.of(context).size.height * 0.37,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 130,
+                            width: 130,
+                            decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(200),
+                            ),
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            child: CachedNetworkImage(
                               fit: BoxFit.cover,
-                              imageUrl:
-                                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEmTY7jA0JKjR-mQKTI_yTkmcXkvxT_J-InVdpxdjMRA&s",
+                              imageUrl:UserModel.getImageUrl(),
                               placeholder: (context, url) => Center(
                                   child: CircularProgressIndicator(
-                                color: Theme.of(context).primaryColor,
-                              )),
-                              errorWidget: (context, url, error) =>
-                                  const Icon(Icons.error),
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                              ),
+                              errorWidget: (context, url, error) =>const Icon(Icons.error),
                             ),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Text(UserModel.getName(),style:Theme.of(context).textTheme.headline2!.copyWith(
+                            color: ColorManager.white,
+                          ) ,),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            onPressed: () {  },
+                            icon: Icon(
+                              Icons.arrow_back_ios,
+                              color: ColorManager.white,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              CachHelper.removeData(key: "token").then((value) {
+                                token ="";
+                                cubit.currentBottomNavIndex=2;
+
+                                Navigation.navigateAndFinish(
+                                  context: context,
+                                  navigatorTo:Routes.authenticationRoute,
+                                );
+                              }).catchError((error){
+                                print("error When logOut :${error.toString()}");
+                              });
+                            },
+                            icon: const Icon(
+                             Icons.logout_outlined,
+                              color: Colors.redAccent,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Expanded(
+                  child: Container(
+                    width: double.infinity,
+                    decoration:  BoxDecoration(
+                      color:Theme.of(context).backgroundColor,
+                      borderRadius:const BorderRadiusDirectional.only(
+                        topStart: Radius.circular(20),
+                        topEnd: Radius.circular(20),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsetsDirectional.only(start: 10,end: 10,top: 10),
+                      child: SingleChildScrollView(
+                        physics:const BouncingScrollPhysics(),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            profileCardItem(
+                              context: context,
+                              editLogo: AssetsManager.pointLogo,
+                              label:"You have  ${UserModel.getUserPoints()} points",
+                              labelStyle: Theme.of(context).textTheme.headline1,
+                              backgroundColor:ColorManager.whiteCyan,
+                              borderColor:ColorManager.whiteCyan,
+                              borderRadius: 10,
+                              isButton: false,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            DefaultButton(
+                              height: 50,
+                              onTap:(){
+                                Navigation.navigatorTo(context: context, navigatorTo:Routes.discussionForums);
+                              },
+                              label: "Forums",
+                              labelStyle:Theme.of(context).textTheme.caption ,
+                              borderColor: Theme.of(context).primaryColor,
+                              buttonColor:ColorManager.white ,
+                              borderRadius: 10,
+                            ),
+                            const  SizedBox(
+                              height: 20,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Edit Profile",
+                                  style: Theme.of(context).textTheme.headline1,
+                                ),
+                                const  SizedBox(
+                                  height: 20,
+                                ),
+                                profileCardItem(
+                                  context: context,
+                                  editLogo: AssetsManager.editLogo,
+                                  label:"Change Name",
+                                  labelStyle: Theme.of(context).textTheme.headline1,
+                                  backgroundColor: ColorManager.white,
+                                  borderColor:ColorManager.black,
+                                  borderRadius: 10,
+                                  isButton: true,
+                                  onTap: (){},
+                                ),
+                                const SizedBox(
+                                  height:20,
+                                ),
+
+                                profileCardItem(
+                                  context: context,
+                                  editLogo: AssetsManager.editLogo,
+                                  label:"Change Email",
+                                  labelStyle: Theme.of(context).textTheme.headline1,
+                                  backgroundColor: ColorManager.white,
+                                  borderColor:ColorManager.black,
+                                  borderRadius: 10,
+                                  isButton: true,
+                                  onTap: (){},
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
-                )),
-            Expanded(
-              child: Container(
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadiusDirectional.only(
-                    topStart: Radius.circular(10),
-                    topEnd: Radius.circular(10),
-                  ),
                 ),
-              ),
+              ],
             ),
-          ]),
-
-          // SizedBox(
-          //   height: 20.h,
-          // ),
-          // Padding(
-          //   padding: const EdgeInsets.all(14.0),
-          //   child: Text(
-          //     "title",
-          //     style: Theme.of(context)
-          //         .textTheme
-          //         .headline3!
-          //         .copyWith(
-          //       fontWeight: FontWeight.w600,
-          //       fontSize: 23,
-          //     ),
-          //   ),
-          // ),
-          // Expanded(
-          //   child: SingleChildScrollView(
-          //     physics:const BouncingScrollPhysics(),
-          //     child: Padding(
-          //       padding:  EdgeInsets.all(24.w),
-          //       child: Center(
-          //         child: Text(
-          //           "description",
-          //           style: Theme.of(context).textTheme.subtitle2!.copyWith(
-          //               fontSize: 16,
-          //               fontWeight: FontWeight.w400,
-          //               height: 1.5,
-          //               color:ColorManager.greyAccent
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // )
-        ],
-      ),
-    ));
+          ),
+        );
+      },
+    );
   }
 }
+
+Widget profileCardItem({
+  required BuildContext context,
+  required String editLogo,
+  required String label,
+  required  labelStyle,
+  required Color backgroundColor,
+  required Color borderColor,
+  required double borderRadius ,
+  VoidCallback? onTap ,
+  bool isButton = false,
+}){
+
+  return Container(
+    padding:const EdgeInsetsDirectional.all(15),
+    width: double.infinity,
+    height:MediaQuery.of(context).size.height*0.1,
+    decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(borderRadius),
+        border:Border.all(
+          color: borderColor,
+        ),
+    ),
+    child: Row(
+      children: [
+        Image.asset(editLogo),
+        const SizedBox(
+          width: 10,
+        ),
+        Text(
+          label,
+          style: labelStyle,
+        ),
+        const Spacer(),
+        isButton?IconButton(
+          onPressed:onTap,
+          icon:const Icon(Icons.arrow_forward),
+        ):const SizedBox(),
+      ],
+    ),
+  );
+}
+
+
+

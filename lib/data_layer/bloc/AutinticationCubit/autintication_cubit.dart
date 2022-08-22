@@ -1,18 +1,21 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:lavie/data_layer/dio_helper/dio_helper.dart';
 import 'package:lavie/data_layer/dio_helper/end_points.dart';
-import 'package:lavie/presentation_layer/models/user_model.dart';
+import 'package:lavie/presentation_layer/models/register_user_model.dart';
 import 'package:lavie/presentation_layer/shared/component/flutter_toast.dart';
+import 'package:lavie/presentation_layer/shared/resources/controllers.dart';
+import '../../../presentation_layer/shared/constant/constant.dart';
+import '../../database/local_database.dart';
 import 'autintication_states.dart';
 
-class AuthonticationCubit extends Cubit<AuthonticationStates> {
-  AuthonticationCubit() : super(AuthonticationInitialState());
-  static AuthonticationCubit get(context) => BlocProvider.of(context);
+class AuthenticationCubit extends Cubit<AuthenticationStates> {
+  AuthenticationCubit() : super(AuthenticationInitialState());
+  static AuthenticationCubit get(context) => BlocProvider.of(context);
   bool isLoginSecure = true;
   bool isSignUpSecure = true;
-
   void toggleLoginEyesOfPassword() {
     isLoginSecure = !isLoginSecure;
     emit(LogInPasswordSecurityState());
@@ -22,28 +25,36 @@ class AuthonticationCubit extends Cubit<AuthonticationStates> {
     isSignUpSecure = !isSignUpSecure;
     emit(SignUpPasswordSecurityState());
   }
+  void toggleIsRememberMe() {
+    isRememberMe = !isRememberMe;
+    emit(ToggleIsRememberMeBoxState());
+  }
 
   UserDataModel? userDataModel;
 
-  void userLogin({
+  Future<void> userLogin({
     required email,
     required password,
     required BuildContext context,
-  }) {
-    emit(AuthonticationLoadingState());
+  }) async{
+    emit(AuthenticationLoadingState());
     DioHelper.postData(url: EndPoints.signIn, data: {
       "password": password,
       "email": email,
     }).then((value) {
       userDataModel = UserDataModel.formJson(value.data);
-      emit(AuthonticationSuccessState(userDataModel));
+      emit(AuthenticationSuccessState(userDataModel));
     }).onError((DioError error, stackTrace) {
         debugPrint(
             "Error When user SignUp :${error.response!.data["message"][0]}");
-        emit(AuthonticationErrorState(error.response!.data["message"].toString()));
+        emit(AuthenticationErrorState(error.response!.data["message"].toString()));
       });
   }
-
+  void getLoginDataFromDataBase(){
+    Controllers.emailController.text =database!.get("email") ?? "";
+    Controllers.passwordController.text =database!.get("password")??"";
+    isRememberMe =database!.get("isRemember")??false;
+  }
   // void signInWithFacebook() async {
   //   try {
   //     final LoginResult result = await FacebookAuth.instance.login(permissions: (['email', 'public_profile']));
@@ -84,30 +95,23 @@ class AuthonticationCubit extends Cubit<AuthonticationStates> {
   // }
 
 
-  void userLoginWithGoogle({
-    required email,
-    required password,
-    required BuildContext context,
-  }) {
-    emit(AuthonticationLoadingState());
-    DioHelper.postData(url: EndPoints.signIn, data: {
-      "password": password,
-      "email": email,
-    }).then((value) {
-      userDataModel = UserDataModel.formJson(value.data);
-      emit(AuthonticationSuccessState(userDataModel));
-    }).onError((DioError error, stackTrace) {
-      debugPrint(
-          "Error When user SignUp :${error.response!.data["message"][0]}");
-      emit(AuthonticationErrorState(error.response!.data["message"].toString()));
-    });
-  }
-
-
-
-
-
-
+  // void userLoginWithGoogle({
+  //   required email,
+  //   required password,
+  //   required BuildContext context,
+  // }) {
+  //   emit(AuthenticationLoadingState());
+  //   DioHelper.postData(url: EndPoints.signIn, data: {
+  //     "password": password,
+  //     "email": email,
+  //   }).then((value) {
+  //     userDataModel = UserDataModel.formJson(value.data);
+  //     emit(AuthonticationSuccessState(userDataModel));
+  //   }).onError((DioError error, stackTrace) {
+  //     debugPrint(
+  //         "Error When user SignUp :${error.response!.data["message"][0]}");
+  //     emit(AuthonticationErrorState(error.response!.data["message"].toString()));
+  //   });
 
 
   void userSignUp({
@@ -118,7 +122,7 @@ class AuthonticationCubit extends Cubit<AuthonticationStates> {
     required String confirmPassword,
     required BuildContext context,
   }) {
-    emit(AuthonticationLoadingState());
+    emit(AuthenticationLoadingState());
     if (password == confirmPassword) {
       DioHelper.postData(url: EndPoints.signUp, data: {
         "firstName": firstName,
@@ -128,18 +132,22 @@ class AuthonticationCubit extends Cubit<AuthonticationStates> {
       }).then((value) {
         debugPrint(value.data);
         userDataModel = UserDataModel.formJson(value.data);
-        emit(AuthonticationSuccessState(userDataModel));
+        emit(AuthenticationSuccessState(userDataModel));
       }).onError((DioError error, stackTrace) {
         debugPrint(
             "Error When user SignUp :${error.response!.data["message"][0]}");
-        emit(AuthonticationErrorState(error.response!.data["message"].toString()));
+        emit(AuthenticationErrorState(error.response!.data["message"].toString()));
       });
     } else {
       Alarm.flutterToast(
         massage: "passwords not the same",
         toastState: ToastState.warning,
       );
-      emit(AuthonticationErrorState("passwords not the same"));
+      emit(AuthenticationErrorState("passwords not the same"));
     }
   }
+
+
+
 }
+

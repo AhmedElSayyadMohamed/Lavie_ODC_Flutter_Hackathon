@@ -40,7 +40,7 @@ class CustomTextFormField extends StatelessWidget {
       children: [
        istextUpTextField? 
          Text(
-        textUpTextField,
+          textUpTextField,
           style:Theme.of(context).textTheme.bodyText1 ,
           ):const SizedBox(),
          const SizedBox(
@@ -52,6 +52,8 @@ class CustomTextFormField extends StatelessWidget {
           obscureText: obSecureText,
           minLines: expand ? null : 1,
           maxLines: expand ? null : 1,
+          style:Theme.of(context).textTheme.bodyText1,
+          cursorColor:Theme.of(context).primaryColor,
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(horizontal: 10,vertical: 15),
             isCollapsed: true,
@@ -60,7 +62,11 @@ class CustomTextFormField extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyText1,
             ),
             hintText: hint,
+            labelStyle:  Theme.of(context).textTheme.bodyText1,
             hintStyle: Theme.of(context).textTheme.bodyText1,
+            errorStyle:Theme.of(context).textTheme.bodyText1!.copyWith(
+              color: Colors.red,
+            ),
             border:isborder? OutlineInputBorder(
               borderSide: BorderSide(
                 width: 2,

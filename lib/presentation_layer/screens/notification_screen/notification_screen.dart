@@ -14,11 +14,10 @@ class NotificationScreen extends StatelessWidget {
           ),
         ),
         body: ListView.separated(
-          padding:const EdgeInsetsDirectional.only(top: 20),
           physics:const  BouncingScrollPhysics(),
             itemBuilder: (context, index) => notificationItem(
                 context: context,
-                imageURL: "",
+                imageURL: "assets/images/tree2.png",
                 notificationMassege: "Joy Arnold left 6 comments on Your Post",
                 notificationDate: "Yesterday at 5:42 PM",
                 ),

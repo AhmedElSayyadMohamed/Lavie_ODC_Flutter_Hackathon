@@ -3,7 +3,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lavie/presentation_layer/layout/layout.dart';
-import 'package:lavie/presentation_layer/screens/AutinticationScreen/autintication_screen.dart';
+import 'package:lavie/presentation_layer/screens/AutinticationScreen/autentication_screen.dart';
 import 'package:lavie/presentation_layer/shared/resources/assets_manger.dart';
 import '../../shared/constant/constant.dart';
 
@@ -16,7 +16,7 @@ class SplashScreen extends StatelessWidget {
       backgroundColor: Theme.of(context).backgroundColor,
       body:  AnimatedSplashScreen(
       splash:AssetsManager.appLogo,
-      nextScreen: token!=null?LayoutScreen():AuthenticationScreen(),
+      nextScreen: token!=""?LayoutScreen():AuthenticationScreen(),
       splashTransition: SplashTransition.slideTransition,
     ),
     );

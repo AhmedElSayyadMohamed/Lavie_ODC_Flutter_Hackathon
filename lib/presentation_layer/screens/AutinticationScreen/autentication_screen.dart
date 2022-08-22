@@ -15,9 +15,9 @@ import 'package:lavie/presentation_layer/shared/component/flutter_toast.dart';
 class AuthenticationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthonticationCubit, AuthonticationStates>(
+    return BlocConsumer<AuthenticationCubit, AuthenticationStates>(
       listener: (BuildContext context, state) {
-        if (state is AuthonticationSuccessState) {
+        if (state is AuthenticationSuccessState) {
           CachHelper.setData(
             value: state.userDataModel!.data!.accessToken,
             key: "token",
@@ -29,13 +29,14 @@ class AuthenticationScreen extends StatelessWidget {
           }).catchError((error) {
             debugPrint("error when save token to cach :${error.toString()}");
           });
-        } else if (state is AuthonticationErrorState) {
+        } else if (state is AuthenticationErrorState) {
           Alarm.flutterToast(
               massage: state.error.toString(), toastState: ToastState.error);
         }
       },
       builder: (BuildContext context, Object? state) {
-        var cubit = AuthonticationCubit.get(context);
+        var cubit = AuthenticationCubit.get(context);
+
         return Scaffold(
           backgroundColor: Theme.of(context).backgroundColor,
           body: SafeArea(
@@ -62,6 +63,7 @@ class AuthenticationScreen extends StatelessWidget {
                     ),
                   ],
                 ),
+
                 Column(
                   children: [
                     SizedBox(
@@ -139,3 +141,4 @@ class AuthenticationScreen extends StatelessWidget {
     );
   }
 }
+

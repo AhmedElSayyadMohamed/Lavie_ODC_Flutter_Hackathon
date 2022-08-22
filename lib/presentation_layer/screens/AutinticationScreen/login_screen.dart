@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:lavie/data_layer/bloc/AutinticationCubit/autintication_cubit.dart';
 import 'package:lavie/data_layer/bloc/AutinticationCubit/autintication_states.dart';
 import 'package:lavie/presentation_layer/shared/component/default_button.dart';
 import 'package:lavie/presentation_layer/shared/component/default_text_form_field.dart';
 import 'package:lavie/presentation_layer/shared/component/defualt_text_button.dart';
+import 'package:lavie/presentation_layer/shared/constant/constant.dart';
 import 'package:lavie/presentation_layer/shared/resources/color_manager.dart';
 import 'package:lavie/presentation_layer/shared/widget/login_with_facebook_or_google.dart';
 
-var emailController = TextEditingController();
-var passwordController = TextEditingController();
+import '../../../data_layer/database/local_database.dart';
+import '../../shared/resources/controllers.dart';
+
+
 var formKey = GlobalKey<FormState>();
 
 Widget loginScreen({
@@ -19,12 +23,13 @@ Widget loginScreen({
   required onFieldSubmitted,
   required onTapOnforgotPassword,
 }) {
-  var cubit = AuthonticationCubit.get(context);
+  var cubit = AuthenticationCubit.get(context);
+
   return Padding(
     padding: EdgeInsetsDirectional.only(
       start: 40.w,
       end: 40.w,
-      top: 40.h,
+      top: 20.h,
     ),
     child: SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
@@ -33,7 +38,7 @@ Widget loginScreen({
         child: Column(
           children: [
             CustomTextFormField(
-              controller: emailController,
+              controller: Controllers.emailController,
               keyboardType: TextInputType.emailAddress,
               formBorderRadius: 7,
               istextUpTextField: true,
@@ -48,7 +53,7 @@ Widget loginScreen({
               height: 20,
             ),
             CustomTextFormField(
-              controller: passwordController,
+              controller: Controllers.passwordController,
               keyboardType: TextInputType.emailAddress,
               istextUpTextField: true,
               textUpTextField: "Password",
@@ -80,12 +85,15 @@ Widget loginScreen({
                 Row(
                   children: [
                     Checkbox(
-                      value: false,
+                      value: isRememberMe,
                       checkColor: ColorManager.white,
-                      onChanged: (value) {},
+                      activeColor: Theme.of(context).primaryColor,
+                      onChanged: (value) {
+                        cubit.toggleIsRememberMe();
+                      },
                     ),
                     Text(
-                      "Remeber me",
+                      "Remember me",
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ],
@@ -96,10 +104,11 @@ Widget loginScreen({
                 ),
               ],
             ),
+
             const SizedBox(
               height: 10,
             ),
-            cubit.state is AuthonticationLoadingState
+            cubit.state is AuthenticationLoadingState
                 ? Center(
                     child: CircularProgressIndicator(
                       color: Theme.of(context).primaryColor,
@@ -109,10 +118,26 @@ Widget loginScreen({
                     onTap: () {
                       if (formKey.currentState!.validate()) {
                         cubit.userLogin(
-                          email: emailController.text,
-                          password: passwordController.text,
+                          email: Controllers.emailController.text,
+                          password: Controllers.passwordController.text,
                           context: context,
-                        );
+                        ).then((value){
+                          if(isRememberMe){
+                            insertBoxToDataBase(
+                                email:Controllers.emailController.text,
+                                password:Controllers. passwordController.text,
+                               isRemember: isRememberMe,
+                            );
+
+                          }else{
+                            Future.delayed(const Duration(seconds: 5)).then((value) {
+                               database!.clear();
+                              Controllers.emailController.clear();
+                              Controllers. passwordController.clear();
+                            });
+
+                          }
+                        });
                       }
                     },
                     label:"Login",
@@ -121,10 +146,16 @@ Widget loginScreen({
                     borderRadius: 5,
                     height: 50,
                   ),
+
+
             signInWithFaceBookOrGoogle(
               context: context,
-              loginWithGoogle: () {},
-              loginWithFacebook: () {},
+              loginWithGoogle: () {
+
+              },
+              loginWithFacebook: () {
+
+                            },
             ),
           ],
         ),
@@ -132,3 +163,5 @@ Widget loginScreen({
     ),
   );
 }
+
+

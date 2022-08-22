@@ -10,5 +10,7 @@ class ColorManager {
   static Color lightWhite = const Color(0xffF8F8F8);
   static Color greyAccent = const Color(0xffA5ACB8);
   static Color whiteAccent = const Color(0xffE8EBF0);
+  static Color whiteCyan = const Color(0xffF3FEF1);
 
 }
+

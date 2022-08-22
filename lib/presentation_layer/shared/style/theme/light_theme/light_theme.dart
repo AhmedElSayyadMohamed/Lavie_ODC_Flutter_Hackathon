@@ -7,21 +7,38 @@ ThemeData lightTheme = ThemeData(
   backgroundColor: ColorManager.white,
   scaffoldBackgroundColor:ColorManager.white ,
   textTheme: TextTheme(
-    bodyText1: GoogleFonts.roboto(
+
+    headline1:GoogleFonts.roboto(
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+      color: ColorManager.black,
+    ) ,
+    headline2:GoogleFonts.roboto(
+      fontSize: 18,
+      fontWeight: FontWeight.w600,
+      color: ColorManager.black,
+    ) ,
+    headline3:GoogleFonts.roboto(
       fontSize: 14,
       fontWeight: FontWeight.w500,
       color: ColorManager.grey,
     ),
-    bodyText2: GoogleFonts.roboto(
-      fontSize: 18,
-      fontWeight: FontWeight.w400,
-      color: ColorManager.midGrey,
+    headline4:GoogleFonts.roboto(
+      fontSize: 16,
+      fontWeight: FontWeight.w600,
+      color: ColorManager.black,
     ),
-    button: GoogleFonts.roboto(
-        fontSize: 16,
-        fontWeight: FontWeight.w500,
-        color: ColorManager.white,
-      ),
+    headline5:GoogleFonts.roboto(
+      fontSize: 16,
+      fontWeight: FontWeight.w600,
+      color: ColorManager.black,
+    ),
+    headline6:GoogleFonts.roboto(
+      fontSize: 16,
+      fontWeight: FontWeight.w600,
+      color: ColorManager.black,
+    ),
+
     subtitle1:GoogleFonts.roboto(
       fontSize: 14,
       fontWeight: FontWeight.w400,
@@ -32,22 +49,23 @@ ThemeData lightTheme = ThemeData(
       fontWeight: FontWeight.w500,
       color: ColorManager.lightGrey,
     ),
-    headline1:GoogleFonts.roboto(
-    fontSize: 16,
-    fontWeight: FontWeight.w500,
-    color: ColorManager.black,
-  ) ,
-    headline2:GoogleFonts.roboto(
+
+    bodyText1: GoogleFonts.roboto(
+      fontSize: 14,
+      fontWeight: FontWeight.w500,
+      color: ColorManager.grey,
+    ),
+    bodyText2: GoogleFonts.roboto(
       fontSize: 18,
-      fontWeight: FontWeight.w600,
-      color: ColorManager.black,
-    ) ,
-    headline3:GoogleFonts.roboto(
-      fontSize: 16,
-      fontWeight: FontWeight.w600,
-      color: ColorManager.black,
+      fontWeight: FontWeight.w400,
+      color: ColorManager.midGrey,
     ),
 
+    button: GoogleFonts.roboto(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: ColorManager.white,
+      ),
     caption: GoogleFonts.poppins(
       fontSize: 14,
       fontWeight: FontWeight.w500,

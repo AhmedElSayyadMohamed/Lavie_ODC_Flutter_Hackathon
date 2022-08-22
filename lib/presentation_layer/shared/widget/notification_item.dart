@@ -14,7 +14,7 @@ Widget notificationItem({
     padding:  EdgeInsets.symmetric(horizontal:16.w),
     child: ListTile(
       leading:  CircleAvatar(
-        backgroundImage: NetworkImage(imageURL),
+        backgroundImage: AssetImage(imageURL),
       ),
       title: Text(
         notificationMassege,

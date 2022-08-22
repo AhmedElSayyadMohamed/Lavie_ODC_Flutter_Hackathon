@@ -17,5 +17,9 @@ class AppColor{
   static Color notActiveLabelFilterCategoryButtons =  ColorManager.midGrey;
 
 
+  // TextFormField
+  static Color textUpTextFormField =  ColorManager.grey;
+
+
 
 }

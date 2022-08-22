@@ -1,22 +1,23 @@
-import 'package:lavie/presentation_layer/models/user_model.dart';
+import 'package:lavie/presentation_layer/models/register_user_model.dart';
 
-abstract class AuthonticationStates {}
+abstract class AuthenticationStates {}
 
-class AuthonticationInitialState extends AuthonticationStates {}
+class AuthenticationInitialState extends AuthenticationStates {}
 
-class LogInPasswordSecurityState extends AuthonticationStates {}
+class LogInPasswordSecurityState extends AuthenticationStates {}
 
-class SignUpPasswordSecurityState extends AuthonticationStates {}
+class SignUpPasswordSecurityState extends AuthenticationStates {}
 
-class AuthonticationLoadingState extends AuthonticationStates {}
+class AuthenticationLoadingState extends AuthenticationStates {}
+class ToggleIsRememberMeBoxState extends AuthenticationStates {}
 
-class AuthonticationSuccessState extends AuthonticationStates {
+class AuthenticationSuccessState extends AuthenticationStates {
  UserDataModel? userDataModel;
-  AuthonticationSuccessState(this.userDataModel);
+  AuthenticationSuccessState(this.userDataModel);
 }
 
-class AuthonticationErrorState extends AuthonticationStates {
+class AuthenticationErrorState extends AuthenticationStates {
   final String error;
-  AuthonticationErrorState(this.error);
+  AuthenticationErrorState(this.error);
 }
 
