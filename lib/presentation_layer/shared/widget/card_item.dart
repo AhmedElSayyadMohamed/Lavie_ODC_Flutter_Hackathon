@@ -85,7 +85,7 @@ Widget cardItem({
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      width: 60,
+
                       height: 40,
                       decoration: BoxDecoration(
                         color:ColorManager.lightWhite ,
@@ -127,7 +127,9 @@ Widget cardItem({
                         ],
                       ),
                     ),
-                    Spacer(),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width*0.08,
+                    ),
                     IconButton(
                       onPressed: onTapRemoveProductFromMyCard,
                       splashRadius: 20,

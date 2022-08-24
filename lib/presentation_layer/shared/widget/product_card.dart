@@ -3,8 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lavie/data_layer/bloc/GeneralCubit/general_cubit.dart';
 import '../../../data_layer/dio_helper/end_points.dart';
-import '../../models/product_model.dart';
-import '../../screens/cart_screen/cart_screen.dart';
 import '../component/default_button.dart';
 import '../resources/color_manager.dart';
 
@@ -62,16 +60,9 @@ Widget productCard({
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 5.0, bottom: 10),
-                      child: ProductModel.allProduct[index!].inCard ==true?
-                      DefaultButton(
-                        onTap: (){
-                          Navigator.push(context, CupertinoPageRoute(builder: (_) => CardScreen()));
-                        },
-                        label:"Go To Card",
-                        labelStyle:Theme.of(context).textTheme.button ,
-                        borderRadius: 10,
-                        height: 45,
-                        buttonColor: Theme.of(context).primaryColor,
+                      child: cubit.products[index!].inCard ==true?
+                      const SizedBox(
+                        height:45 ,
                       ):
                       DefaultButton(
                         onTap: tapToCard,
@@ -106,7 +97,7 @@ Widget productCard({
             ),
           ),
         ),
-        cubit.products[index].inCard ==true?SizedBox():Align(
+        Align(
           alignment: AlignmentDirectional.center,
           child: Padding(
             padding: const EdgeInsets.all(8.0),

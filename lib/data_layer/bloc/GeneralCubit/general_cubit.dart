@@ -46,9 +46,8 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
 
   Future<void> changeBottomNavBarIndex(index) async {
     if (index == 0) await getAllBlogs();
-    // if (index == 4) await getUserData();
-    currentBottomNavIndex = index;
 
+    currentBottomNavIndex = index;
     emit(ChangeBottomNavIndexState());
   }
 
@@ -74,8 +73,7 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
   }
 
   void changProductWhichGoToCardIndex(index) {
-    ProductModel.allProduct[index].inCard =
-        !ProductModel.allProduct[index].inCard;
+   products[index].inCard =!products[index].inCard;
     emit(ChangeProductWhichGoToCardIndexState());
   }
 

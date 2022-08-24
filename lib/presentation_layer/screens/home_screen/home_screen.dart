@@ -17,7 +17,6 @@ import '../../models/product_model.dart';
 import '../../shared/widget/category_list_view.dart';
 
 class HomeScreen extends StatelessWidget {
-  var searchController =TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +25,6 @@ class HomeScreen extends StatelessWidget {
       builder: (context, state) {
         var cubit =GeneralLavieCubit.get(context);
         return Scaffold(
-
           backgroundColor: Theme.of(context).backgroundColor,
           body: SafeArea(
             child: Padding(

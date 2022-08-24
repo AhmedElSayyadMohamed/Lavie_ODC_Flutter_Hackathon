@@ -39,7 +39,6 @@ class CardScreen extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
                   child:
                   listViewOfCards(context: context),
-
                 ),
               ),
               pillCardItem(context: context),
