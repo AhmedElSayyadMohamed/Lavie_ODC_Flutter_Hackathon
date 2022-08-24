@@ -28,12 +28,17 @@ class ProfileScreen extends StatelessWidget {
           backgroundColor:ColorManager.black ,
           body: SafeArea(
             child: state is GetUserDataLoadingState?
-                Center(
-                    child: CircularProgressIndicator(
+            Container(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height,
+              color: Colors.white,
+              child: Center(
+                child: CircularProgressIndicator(
                   color: Theme.of(context).primaryColor,
                 ),
-                )
-                :Column(
+              ),
+            )
+                : Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Stack(
