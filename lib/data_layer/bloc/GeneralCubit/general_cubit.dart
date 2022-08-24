@@ -1,5 +1,6 @@
+import 'dart:convert';
+import 'dart:io'as Io;
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -22,18 +23,20 @@ import '../../../presentation_layer/models/user_model.dart';
 
 class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
   GeneralLavieCubit() : super(InitialState());
-  static GeneralLavieCubit get(BuildContext context) => BlocProvider.of(context);
 
-  // variables
-  int  currentBottomNavIndex = 2;
-  int  filterCategoryButtonIndex = 0;
+  static GeneralLavieCubit get(BuildContext context) =>
+      BlocProvider.of(context);
+
+  /////////////////////////////// variables ///////////////////////
+
+  int currentBottomNavIndex = 2;
+  int filterCategoryButtonIndex = 0;
   bool toggleBetweenAllForumAndMyForum = true;
-  int increaseProductInCard=0;
-  int decreaseProductInCard=0;
+  int increaseProductInCard = 0;
+  int decreaseProductInCard = 0;
   int totalOfPill = 0;
-  List<Product> products=[];
+  List<Product> products = [];
   List<dynamic> cardItems = [];
-
   List<Widget> screen = [
     BlogsScreen(),
     const ScanScreen(),
@@ -42,12 +45,11 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
     ProfileScreen(),
   ];
 
+  ///////////////////////// Methods //////////////////////////////
 
-  //Methods
-  Future<void> changeBottomNavBarIndex(index)async {
-
-    if(index==0)await getAllBlogs();
-    if(index==4)await getUserData();
+  Future<void> changeBottomNavBarIndex(index) async {
+    if (index == 0) await getAllBlogs();
+    if (index == 4) await getUserData();
     currentBottomNavIndex = index;
 
     emit(ChangeBottomNavIndexState());
@@ -56,234 +58,214 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
   void changeCategoryIndex(index) {
     filterCategoryButtonIndex = index;
 
-    if(index==0){
+    if (index == 0) {
       products = ProductModel.allProduct;
     }
-    if(index==1) {
+    if (index == 1) {
       products = ProductModel.plants;
-    } else if(index ==2){
+    } else if (index == 2) {
       products = ProductModel.seeds;
-    }
-    else if(index ==3){
-      products =ProductModel.tools;
+    } else if (index == 3) {
+      products = ProductModel.tools;
     }
 
     emit(ChangeCategoryIndexState());
   }
 
   void changProductWhichGoToCardIndex(index) {
-    ProductModel.allProduct[index].inCard=!ProductModel.allProduct[index].inCard;
+    ProductModel.allProduct[index].inCard =
+        !ProductModel.allProduct[index].inCard;
     emit(ChangeProductWhichGoToCardIndexState());
   }
 
-  void toggleBetweenAllForumAndMyForumButton({
-  required bool isALlForum
-  }) {
+  void toggleBetweenAllForumAndMyForumButton({required bool isALlForum}) {
     toggleBetweenAllForumAndMyForum = isALlForum;
     emit(ChangeIsAllForumState());
   }
 
- void incrementQuantityOfProduct({
-  required int index,
-}){
-      ProductModel.allProduct[index].quantity++;
-      emit(IncrementQuantityOfProduct());
- }
+  void incrementQuantityOfProduct({
+    required int index,
+  }) {
+    ProductModel.allProduct[index].quantity++;
+    emit(IncrementQuantityOfProduct());
+  }
 
- void decrementQuantityOfProduct({
-  required int index,
- }
-){
-   if(ProductModel.allProduct[index].quantity>1){
-     ProductModel.allProduct[index].quantity--;
-     emit(DecrementQuantityOfProduct());
-
-   }
- }
+  void decrementQuantityOfProduct({
+    required int index,
+  }) {
+    if (ProductModel.allProduct[index].quantity > 1) {
+      ProductModel.allProduct[index].quantity--;
+      emit(DecrementQuantityOfProduct());
+    }
+  }
 
   void incrementQuantityOfProductInCard({
     required int quantity,
-  }){
-    increaseProductInCard=quantity;
+  }) {
+    increaseProductInCard = quantity;
     increaseProductInCard++;
     emit(IncrementQuantityOfProduct());
-
   }
 
   void decrementQuantityOfProductInCard({
     required int quantity,
-  }
-      ){
-    if(quantity>1){
-      decreaseProductInCard=quantity;
+  }) {
+    if (quantity > 1) {
+      decreaseProductInCard = quantity;
       decreaseProductInCard--;
       emit(DecrementQuantityOfProduct());
-
     }
   }
 
-  int calculateTotalOfPill(){
-    int total =0;
-    totalOfPill =0;
+  int calculateTotalOfPill() {
+    int total = 0;
+    totalOfPill = 0;
     cardItems.forEach((element) {
-     total=element["price"]*element["quantity"];
-    totalOfPill +=total;
+      total = element["price"] * element["quantity"];
+      totalOfPill += total;
     });
 
     return totalOfPill;
   }
 
-
   // create ProductDatabase
-  void initProductDatabase()async{
-
-    openDatabase("product.db",
-        version: 1,
-        onCreate: (db, version) {
-
-          print('database created');
-          return db.execute(
-              'CREATE TABLE  product(id INTEGER PRIMARY KEY,image TEXT,title TEXT,price INTEGER,quantity INTEGER,status TEXT)').
-          then((value){ print('table created');}).
-          catchError((error){ print('error when create table : ${error.toString()}');});},
-
-        onOpen: (database) {
-          print('database opened');
-         DatabaseHelper.getFromDatabase(database).then((value) {
-
-            cardItems=value;
-          }).catchError((error) {
-            print('error when get :${error.toString()}');
-          });
-        }).then((value) {
-      productDatabase =value;
-    }).catchError((error){
+  void initProductDatabase() async {
+    openDatabase("product.db", version: 1, onCreate: (db, version) {
+      print('database created');
+      return db
+          .execute('CREATE TABLE  product(id INTEGER PRIMARY KEY,'
+              'image TEXT,title TEXT,price INTEGER,'
+              'quantity INTEGER,status TEXT)')
+          .then((value) {
+        print('table created');
+      }).catchError(
+        (error) {
+          print('error when create table : ${error.toString()}');
+        },
+      );
+    }, onOpen: (database) {
+      print('database opened');
+      DatabaseHelper.getFromDatabase(database).then((value) {
+        cardItems = value;
+      }).catchError((error) {
+        print('error when get :${error.toString()}');
+      });
+    }).then((value) {
+      productDatabase = value;
+    }).catchError((error) {
       print(("error when create product database :${error.toString()}"));
     });
   }
 
   //getUserData
-
-  Future<void> getUserData()async {
+  Future<void> getUserData() async {
     emit(GetUserDataLoadingState());
-   await DioHelper.getData(
-      url:EndPoints.getUserData,
-      token:token,
-   ).then((value){
-    UserModel.data =Map<String,dynamic>.from(value.data);
-    emit(GetUserDataSuccessState());
-  }).catchError((error){
-     print("error When getUserdata :${error.toString()}");
-    emit(GetUserDataErrorState());
+    await DioHelper.getData(
+      url: EndPoints.getUserData,
+      token: token,
+    ).then((value) {
+      UserModel.data = Map<String, dynamic>.from(value.data);
+      emit(GetUserDataSuccessState());
+    }).catchError((error) {
+      print("error When getUserdata :${error.toString()}");
+      emit(GetUserDataErrorState());
     });
-
   }
 
 
-  // pickImage
-  final ImagePicker _imagePicker = ImagePicker();
-  File? postImage;
 
-  // void pickImageFromGallary({
-  //   bool isProfileImage = false,
-  //   bool isPostImage = false,
-  // }) async {
-  //
-  //   //Check Permissions
-  //   var permissionStatus = await Permission.photos.status;
-  //   await Permission.photos.request();
-  //
-  //   if (permissionStatus.isGranted) {
-  //     //Select Image
-  //     var pikedFile = await _imagePicker.pickImage(source: ImageSource.gallery);
-  //     if (pikedFile != null) {
-  //       if (ispostImage) {
-  //         emit(PickPostImageLoadingState());
-  //         postImage = File(pikedFile.path);
-  //         print("post image: ${postImage}");
-  //
-  //         ispostImage = false;
-  //         emit(PickPostImageSuccessState());
-  //       }
-  //       if (isProfileImage) {
-  //         profileImage = File(pikedFile.path);
-  //       } else {
-  //         coverImage = File(pikedFile.path);
-  //       }
-  //
-  //       emit(PickCoverImageSuccessState());
-  //     } else {
-  //       print('No Image Path Received');
-  //       emit(PickCoverImageErrorState());
-  //     }
-  //   } else {
-  //     print("permission to gallary is denied");
-  //   }
-  // }
+
+
+  final ImagePicker _imagePicker = ImagePicker();
+  XFile? postImage;
+  String? imageBase64;
+  Future pickImageFromGallary() async {
+    await _imagePicker.pickImage(source: ImageSource.gallery).then((value) {
+      postImage = XFile(value!.path);
+      final bytes = File(postImage!.path).readAsBytesSync();
+      imageBase64 = base64Encode(bytes);
+      print(imageBase64);
+      emit(PickImageSuccessState());
+    }).catchError((onError) {
+      print(onError.toString());
+      emit(PickImageErrorState());
+    });
+  }
+
+
+  void createNewPost({
+   required String title,
+   required String description,
+    required imageBase64,
+}){
+    emit(UploadPostLoadingState());
+    DioHelper.postData(
+        url: EndPoints.uploadPost,token: token, data:{
+            "title": title,
+            "description": description,
+            "imageBase64": imageBase64,
+        }).then((value) {
+          print(value);
+          emit(UploadPostSuccessState());
+       }).catchError((error){
+          print("error when Upload post :${error.toString()}");
+          emit(UploadPostErrorState());
+      });
+  }
 
   Future<void> editUserData({
-  required String firstName,
-  required String lastName,
-  // required String email,
-  // required String address,
-})async {
+    required String firstName,
+    required String lastName,
+    // required String email,
+    // required String address,
+  }) async {
     emit(EditUserDataLoadingState());
-   await DioHelper.patchData(
-       url: EndPoints.updateUserData,
-       data:{
-           "firstName": "firstName",
-           "lastName": lastName,
-           // "email": email,
-           // "address": "tempor elit sed"
-         },
-
-   ).then((value){
-    emit(EditUserDataSuccessState());
-  }).catchError((error){
-     print("error When editUserdata :${error.toString()}");
-    emit(EditUserDataErrorState());
+    await DioHelper.patchData(
+      url: EndPoints.updateUserData,
+      data: {
+        "firstName": "firstName",
+        "lastName": lastName,
+        // "email": email,
+        // "address": "tempor elit sed"
+      },
+    ).then((value) {
+      emit(EditUserDataSuccessState());
+    }).catchError((error) {
+      print("error When editUserdata :${error.toString()}");
+      emit(EditUserDataErrorState());
     });
-
   }
-
 
   //getBLogs
   BlogDataModel? blogsModel;
-  Future<void> getAllBlogs()async {
 
+  Future<void> getAllBlogs() async {
     emit(GetAllBlogsLoadingState());
-   await DioHelper.getData(
-      url:EndPoints.getBlogs,
-      token:token,
-   ).then((value){
-     blogsModel = BlogDataModel.fromJson(value.data) ;
-     emit(GetAllBlogsSuccessState());
-  }).catchError((error){
-     debugPrint("error When GetAllBlogs :${error.toString()}");
-     emit(GetAllBlogsErrorState());
+    await DioHelper.getData(
+      url: EndPoints.getBlogs,
+      token: token,
+    ).then((value) {
+      blogsModel = BlogDataModel.fromJson(value.data);
+      emit(GetAllBlogsSuccessState());
+    }).catchError((error) {
+      debugPrint("error When GetAllBlogs :${error.toString()}");
+      emit(GetAllBlogsErrorState());
     });
-
   }
-
 
   //getProducts
-  Future<void> getProducts()async {
+  Future<void> getProducts() async {
     emit(GetProductsLoadingState());
-   await DioHelper.getData(
-      url:EndPoints.getProducts,
-      token:token,
-   ).then((value){
-
-      ProductModel.fromJson(value.data) ;
-      products =ProductModel.allProduct;
+    await DioHelper.getData(
+      url: EndPoints.getProducts,
+      token: token,
+    ).then((value) {
+      ProductModel.fromJson(value.data);
+      products = ProductModel.allProduct;
       emit(GetProductsSuccessState());
-  }).catchError((error){
-     debugPrint("error When GetProducts :${error.toString()}");
-     emit(GetProductsErrorState());
+    }).catchError((error) {
+      debugPrint("error When GetProducts :${error.toString()}");
+      emit(GetProductsErrorState());
     });
-
   }
-
-
-
 }

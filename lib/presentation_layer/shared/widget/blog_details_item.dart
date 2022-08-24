@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lavie/presentation_layer/shared/resources/assets_manger.dart';
 import 'package:lavie/presentation_layer/shared/resources/color_manager.dart';
 import '../component/default_navigation.dart';
 
@@ -28,7 +29,7 @@ Widget blogDetailsBlogItem({
                     color: Theme.of(context).primaryColor,
                   ),
                 ),
-                errorWidget: (context, url, error) =>const Icon(Icons.error),
+                errorWidget: (context, url, error) =>Image.network(AssetsManager.imageNotFound),
               ),
             ),
             Padding(

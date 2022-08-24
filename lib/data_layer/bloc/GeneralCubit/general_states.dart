@@ -43,6 +43,10 @@ class GetProductDatabaseErrorState extends GeneralLavieStates{}
 
 class DeleteProductFromDatabaseState extends GeneralLavieStates{}
 
-class PickCoverImageLoadingState extends GeneralLavieStates{}
-class PickCoverImageSuccessState extends GeneralLavieStates{}
-class PickCoverImageErrorState extends GeneralLavieStates{}
+class PickImageLoadingState extends GeneralLavieStates{}
+class PickImageSuccessState extends GeneralLavieStates{}
+class PickImageErrorState extends GeneralLavieStates{}
+
+class UploadPostLoadingState extends GeneralLavieStates{}
+class UploadPostSuccessState extends GeneralLavieStates{}
+class UploadPostErrorState extends GeneralLavieStates{}

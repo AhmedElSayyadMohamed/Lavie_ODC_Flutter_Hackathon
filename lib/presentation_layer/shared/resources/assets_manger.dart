@@ -8,4 +8,5 @@ class AssetsManager {
   static const pointLogo = "$imagePath/points.png";
   static const editLogo = "$imagePath/edit.png";
   static const empty= "$imagePath/empty.png";
+  static const imageNotFound= "https://cdni.iconscout.com/illustration/premium/thumb/sorry-item-not-found-3328225-2809510.png";
 }

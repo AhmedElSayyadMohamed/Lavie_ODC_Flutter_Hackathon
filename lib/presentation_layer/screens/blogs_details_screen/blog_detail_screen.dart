@@ -20,7 +20,6 @@ class BlogDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-
         child: blogDetailsBlogItem(
           context: context,
           imageURL: EndPoints.baseUrl+imageUrl,

@@ -7,5 +7,6 @@ static String getUserData = "/api/v1/user/me";
 static String getBlogs = "/api/v1/products/blogs";
 static String getProducts = "/api/v1/products";
 static String updateUserData = "/api/v1/user/me";
+static String uploadPost = "/api/v1/forums";
 
 }

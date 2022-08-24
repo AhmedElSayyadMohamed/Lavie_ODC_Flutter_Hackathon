@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lavie/data_layer/dio_helper/end_points.dart';
+import 'package:lavie/presentation_layer/shared/resources/assets_manger.dart';
 import 'package:lavie/presentation_layer/shared/resources/color_manager.dart';
 
 Widget blogItem({
@@ -40,7 +41,7 @@ Widget blogItem({
                     color: Theme.of(context).primaryColor,
                   ),
                 ),
-                errorWidget: (context, url, error) =>const Icon(Icons.error),
+                errorWidget: (context, url, error) =>Image.network(AssetsManager.imageNotFound),
               ),
 
             ),
