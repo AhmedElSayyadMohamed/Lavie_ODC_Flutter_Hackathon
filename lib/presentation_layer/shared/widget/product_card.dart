@@ -106,7 +106,7 @@ Widget productCard({
             ),
           ),
         ),
-        ProductModel.allProduct[index].inCard ==true?SizedBox():Align(
+        cubit.products[index].inCard ==true?SizedBox():Align(
           alignment: AlignmentDirectional.center,
           child: Padding(
             padding: const EdgeInsets.all(8.0),

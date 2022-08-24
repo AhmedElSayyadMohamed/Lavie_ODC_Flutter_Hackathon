@@ -82,15 +82,15 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
   void incrementQuantityOfProduct({
     required int index,
   }) {
-    ProductModel.allProduct[index].quantity++;
+    products[index].quantity++;
     emit(IncrementQuantityOfProduct());
   }
 
   void decrementQuantityOfProduct({
     required int index,
   }) {
-    if (ProductModel.allProduct[index].quantity > 1) {
-      ProductModel.allProduct[index].quantity--;
+    if (products[index].quantity > 1) {
+      products[index].quantity--;
       emit(DecrementQuantityOfProduct());
     }
   }

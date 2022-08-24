@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:lavie/data_layer/bloc/profileCubit/profile_cubit.dart';
 import 'package:lavie/data_layer/bloc/profileCubit/profile_states.dart';
 import 'package:lavie/presentation_layer/shared/component/default_button.dart';
 import 'package:lavie/presentation_layer/shared/resources/color_manager.dart';
 import 'package:lavie/presentation_layer/shared/widget/post_item.dart';
 import 'package:lavie/presentation_layer/shared/widget/search_bar.dart';
-
 import '../../../application_layer/routes_manager.dart';
 import '../../shared/component/default_navigation.dart';
 

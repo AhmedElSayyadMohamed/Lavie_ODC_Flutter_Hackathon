@@ -127,9 +127,7 @@ Widget cardItem({
                         ],
                       ),
                     ),
-                    SizedBox(
-                      width: 50.w,
-                    ),
+                    Spacer(),
                     IconButton(
                       onPressed: onTapRemoveProductFromMyCard,
                       splashRadius: 20,
