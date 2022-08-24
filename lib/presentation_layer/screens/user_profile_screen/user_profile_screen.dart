@@ -199,7 +199,10 @@ class ProfileScreen extends StatelessWidget {
                                   borderColor:ColorManager.black,
                                   borderRadius: 10,
                                   isButton: true,
-                                  onTap: (){},
+                                  onTap: (){
+
+
+                                  },
                                 ),
                               ],
                             ),

@@ -1,17 +1,25 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lavie/data_layer/bloc/GeneralCubit/general_cubit.dart';
+import '../../../data_layer/dio_helper/end_points.dart';
+import '../../models/product_model.dart';
+import '../../screens/cart_screen/cart_screen.dart';
 import '../component/default_button.dart';
 import '../resources/color_manager.dart';
 
 Widget productCard({
   required BuildContext context,
-  required String title,
-  required String price,
+  required String? title,
+  required int? price,
   required VoidCallback tapToCard,
   required VoidCallback removeTap,
   required VoidCallback addTap,
-  required String quantity,
-  required String imageURL,
+  required int? quantity,
+  required String? imageURL,
+  required int? index,
 }) {
+  var cubit =GeneralLavieCubit.get(context);
   return Container(
     color: Theme.of(context).backgroundColor,
     height: MediaQuery.of(context).size.height,
@@ -35,7 +43,7 @@ Widget productCard({
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      title,
+                      title!,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.headline1,
@@ -44,7 +52,7 @@ Widget productCard({
                       height: 5,
                     ),
                     Text(
-                      price,
+                      "${price.toString()} EL",
                       style: Theme.of(context).textTheme.headline1!.copyWith(
                         fontSize: 12,
                       )
@@ -54,7 +62,18 @@ Widget productCard({
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 5.0, bottom: 10),
-                      child: DefaultButton(
+                      child: ProductModel.allProduct[index!].inCard ==true?
+                      DefaultButton(
+                        onTap: (){
+                          Navigator.push(context, CupertinoPageRoute(builder: (_) => CardScreen()));
+                        },
+                        label:"Go To Card",
+                        labelStyle:Theme.of(context).textTheme.button ,
+                        borderRadius: 10,
+                        height: 45,
+                        buttonColor: Theme.of(context).primaryColor,
+                      ):
+                      DefaultButton(
                         onTap: tapToCard,
                         label:"Add To Card",
                         labelStyle:Theme.of(context).textTheme.button ,
@@ -70,19 +89,33 @@ Widget productCard({
           ),
         ),
         Positioned(
-          left: -5,
-          child: Image.asset(imageURL),
+          left: -2,
+          right:50,
+          top: 2,
+          child:SizedBox(
+            width: MediaQuery.of(context).size.width*0.3,
+            height: MediaQuery.of(context).size.height*0.25,
+            child: CachedNetworkImage(
+              imageUrl:EndPoints.baseUrl+imageURL!,
+              placeholder: (context, url) => Center(
+                child: CircularProgressIndicator(
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
+              errorWidget: (context, url, error) =>const Icon(Icons.error),
+            ),
+          ),
         ),
-        Positioned(
-          top: 15,
-          right:10,
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.3,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Material(
-                  child: InkWell(
+        ProductModel.allProduct[index].inCard ==true?SizedBox():Align(
+          alignment: AlignmentDirectional.center,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.3,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  InkWell(
                     onTap: removeTap,
                     child: Ink(
                       child: Card(
@@ -94,16 +127,14 @@ Widget productCard({
                       ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    quantity,
-                    style: Theme.of(context).textTheme.headline2
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      quantity.toString(),
+                      style: Theme.of(context).textTheme.headline2
+                    ),
                   ),
-                ),
-                Material(
-                  child: InkWell(
+                  InkWell(
                     onTap: addTap,
                     child: Ink(
                       child: Card(
@@ -115,8 +146,8 @@ Widget productCard({
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

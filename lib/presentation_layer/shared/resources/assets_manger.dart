@@ -7,5 +7,5 @@ class AssetsManager {
   static const facebookLogo = "$imagePath/facebook.png";
   static const pointLogo = "$imagePath/points.png";
   static const editLogo = "$imagePath/edit.png";
-
+  static const empty= "$imagePath/empty.png";
 }

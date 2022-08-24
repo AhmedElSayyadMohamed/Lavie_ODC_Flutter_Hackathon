@@ -63,7 +63,6 @@ class AuthenticationScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-
                 Column(
                   children: [
                     SizedBox(

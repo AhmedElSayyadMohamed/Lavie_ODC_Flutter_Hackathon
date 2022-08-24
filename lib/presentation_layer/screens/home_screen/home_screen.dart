@@ -3,15 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lavie/data_layer/bloc/GeneralCubit/general_cubit.dart';
 import 'package:lavie/data_layer/bloc/GeneralCubit/general_states.dart';
+import 'package:lavie/data_layer/database/local_database/database_helper.dart';
+import 'package:lavie/data_layer/dio_helper/end_points.dart';
 import 'package:lavie/presentation_layer/shared/component/default_navigation.dart';
+import 'package:lavie/presentation_layer/shared/component/flutter_toast.dart';
 import 'package:lavie/presentation_layer/shared/resources/assets_manger.dart';
 import 'package:lavie/presentation_layer/shared/widget/card_botton.dart';
-import 'package:lavie/presentation_layer/shared/widget/filter_category_button_item.dart';
+import 'package:lavie/presentation_layer/shared/widget/gredview_of_products.dart';
+import 'package:lavie/presentation_layer/shared/widget/product_card.dart';
 import 'package:lavie/presentation_layer/shared/widget/search_bar.dart';
 import '../../../application_layer/routes_manager.dart';
-import '../../shared/resources/color_manager.dart';
+import '../../models/product_model.dart';
 import '../../shared/widget/category_list_view.dart';
-import '../../shared/widget/product_grid_view.dart';
 
 class HomeScreen extends StatelessWidget {
   var searchController =TextEditingController();
@@ -23,6 +26,7 @@ class HomeScreen extends StatelessWidget {
       builder: (context, state) {
         var cubit =GeneralLavieCubit.get(context);
         return Scaffold(
+
           backgroundColor: Theme.of(context).backgroundColor,
           body: SafeArea(
             child: Padding(
@@ -49,14 +53,12 @@ class HomeScreen extends StatelessWidget {
                       Expanded(
                         child: searchBar(
                           context: context,
-
                           onTap: () {
                             Navigation.navigatorTo(
                               context: context,
                               navigatorTo: Routes.searchRoute,
                             );
                           }, enabled: false,
-                          searchController: searchController,
                         ),
                       ),
                       cardBotton(
@@ -70,32 +72,22 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                   sizedBoxSpace(context: context),
+                   SizedBox(
+                     height: 25.h,
+                   ),
                    categoryListView(context: context),
                    SizedBox(
                      height: 20.h,
                    ),
                    Expanded(
-                     child: SingleChildScrollView(
-                       physics: const BouncingScrollPhysics(),
-                       child: Column(
-                         children: [
-                           productGridView(
-                             context: context,
-                             title: "title",
-                             price: "price",
-                             tapToCard: () {},
-                             removeTap: () {},
-                             addTap: () {},
-                             quantity: "1",
-                             imageURL: "assets/images/tree2.png",
-                           ),
-                         ],
+                     child: state is GetProductsLoadingState ?
+                     Center(
+                       child: CircularProgressIndicator(
+                         color: Theme.of(context).primaryColor,
                        ),
-                     ),
+                     )
+                         : greViewOfProducts(context: context),
                    ),
-
-
                 ],
               ),
             ),
@@ -104,12 +96,5 @@ class HomeScreen extends StatelessWidget {
       },
     );
   }
-
-  Widget sizedBoxSpace({
-    required BuildContext context,
-  }) {
-    return SizedBox(
-      height: 35.h,
-    );
   }
-}
+

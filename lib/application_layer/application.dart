@@ -20,7 +20,10 @@ class MyApp extends StatelessWidget {
           AuthenticationCubit()..getLoginDataFromDataBase(),
         ),
         BlocProvider(
-          create: (context) => GeneralLavieCubit()..getUserData(),
+          create: (context) =>
+          GeneralLavieCubit()..
+          initProductDatabase()..
+          getProducts(),
         ),
       ],
       child: ScreenUtilInit(

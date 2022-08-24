@@ -16,6 +16,7 @@ class CustomTextFormField extends StatelessWidget {
   bool isborder;
   bool istextUpTextField;
   String textUpTextField;
+  int maxline;
   CustomTextFormField({
     Key? key,
     this.controller,
@@ -32,6 +33,7 @@ class CustomTextFormField extends StatelessWidget {
     this.isborder =true,
     this.textUpTextField="",
     this.istextUpTextField=false,
+    this.maxline=1,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -44,14 +46,13 @@ class CustomTextFormField extends StatelessWidget {
           style:Theme.of(context).textTheme.bodyText1 ,
           ):const SizedBox(),
          const SizedBox(
-            height: 5,
+            height: 10,
           ),
          TextFormField(
           controller: controller,
           keyboardType: keyboardType,
           obscureText: obSecureText,
-          minLines: expand ? null : 1,
-          maxLines: expand ? null : 1,
+          maxLines: maxline,
           style:Theme.of(context).textTheme.bodyText1,
           cursorColor:Theme.of(context).primaryColor,
           decoration: InputDecoration(

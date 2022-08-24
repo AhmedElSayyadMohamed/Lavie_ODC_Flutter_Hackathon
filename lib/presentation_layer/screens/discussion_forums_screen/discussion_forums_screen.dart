@@ -75,7 +75,7 @@ class DiscussionForums extends StatelessWidget{
                           Theme.of(context).primaryColor:
                           Theme.of(context).backgroundColor,
                           onTap: (){
-                            cubit.changeIsAllForum(isALlForum:true);
+                            cubit.toggleBetweenAllForumAndMyForumButton(isALlForum:true);
                           },
                         ),
                         const SizedBox(
@@ -96,7 +96,7 @@ class DiscussionForums extends StatelessWidget{
                           Theme.of(context).backgroundColor:
                           Theme.of(context).primaryColor,
                           onTap: (){
-                            cubit.changeIsAllForum(isALlForum:false);
+                            cubit.toggleBetweenAllForumAndMyForumButton(isALlForum:false);
                           },
                         ),
                       ],

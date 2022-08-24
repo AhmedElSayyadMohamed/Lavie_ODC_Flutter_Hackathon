@@ -8,7 +8,7 @@ Widget categoryListView({
     }) {
   var cubit =GeneralLavieCubit.get(context);
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.07,
+      height: MediaQuery.of(context).size.height * 0.06,
       child: ListView.separated(
         // controller: categoryController,
         physics: const BouncingScrollPhysics(),

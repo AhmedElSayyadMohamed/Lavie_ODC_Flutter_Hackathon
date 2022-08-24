@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lavie/presentation_layer/shared/resources/color_manager.dart';
@@ -6,7 +7,7 @@ Widget cardItem({
   required BuildContext context,
   required String productURL,
   required String productName,
-  required String productPrice,
+  required int? productPrice,
   required int quantity,
   required VoidCallback onTapAddProduct,
   required VoidCallback onTapMinusProduct,
@@ -32,7 +33,16 @@ Widget cardItem({
               borderRadius: BorderRadius.circular(10),
             ),
             width: MediaQuery.of(context).size.width * 0.42,
-            child: Image.asset(productURL),
+            child: CachedNetworkImage(
+              fit: BoxFit.cover,
+              imageUrl:productURL,
+              placeholder: (context, url) => Center(
+                child: CircularProgressIndicator(
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
+              errorWidget: (context, url, error) =>const Icon(Icons.error),
+            ),
           ),
           const SizedBox(
             width: 5,
@@ -59,7 +69,7 @@ Widget cardItem({
                   height: 15,
                 ),
                 Text(
-                  productPrice,
+                  "${productPrice} EGP",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style:
@@ -85,7 +95,8 @@ Widget cardItem({
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           InkWell(
-                            onTap: onTapAddProduct,
+
+                            onTap:onTapMinusProduct ,
                             splashColor: Colors.redAccent,
                             child: Icon(
                               Icons.remove,
@@ -106,7 +117,7 @@ Widget cardItem({
                             ),
                           ),
                           InkWell(
-                            onTap:onTapMinusProduct,
+                            onTap:onTapAddProduct ,
                             child: Icon(
                               Icons.add,
                               size: 20,

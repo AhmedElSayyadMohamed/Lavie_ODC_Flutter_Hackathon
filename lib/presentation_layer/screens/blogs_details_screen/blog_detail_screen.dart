@@ -1,36 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lavie/presentation_layer/shared/component/default_navigation.dart';
+import 'package:lavie/data_layer/dio_helper/end_points.dart';
 import 'package:lavie/presentation_layer/shared/widget/blog_details_item.dart';
-import '../../shared/resources/color_manager.dart';
 
 class BlogDetailsScreen extends StatelessWidget {
+
+  final String imageUrl;
+  final String title;
+  final String description;
+
+  const BlogDetailsScreen(
+      {Key? key,
+        required this.imageUrl,
+        required this.title,
+        required this.description,
+      }) :
+        super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
+
         child: blogDetailsBlogItem(
-            context: context,
-            imageURL: "assets/images/tree2.png",
-            title: "title",
-            description: "leaf, in botany, any usually flattened green outgrowth from the stem of  "
-                "leaf, in botany, any usually flattened green outgrowth from the stem of"
-                "leaf, in botany, any usually flattened green outgrowth from the stem of"
-                "leaf, in botany, any usually flattened green outgrowth from the stem of"
-                "leaf, in botany, any usually flattened green outgrowth from the stem of"
-                "leaf, in botany, any usually flattened green outgrowth from the stem of  "
-                "leaf, in botany, any usually flattened green outgrowth from the stem of  "
-                "leaf, in botany, any usually flattened green outgrowth from the stem of"
-                "leaf, in botany, any usually flattened green outgrowth from the stem of"
-                "leaf, in botany, any usually flattened green outgrowth from the stem of"
-                "leaf, in botany, any usually flattened green outgrowth from the stem of"
-                "leaf, in botany, any usually flattened green outgrowth from the stem of  "
-                "leaf, in botany, any usually flattened green outgrowth from the stem of  "
-                "leaf, in botany, any usually flattened green outgrowth from the stem of"
-                "leaf, in botany, any usually flattened green outgrowth from the stem of"
-                "leaf, in botany, any usually flattened green outgrowth from the stem of"
-                "leaf, in botany, any usually flattened green outgrowth from the stem of"
-                "leaf, in botany, any usually flattened green outgrowth from the stem of  ",
+          context: context,
+          imageURL: EndPoints.baseUrl+imageUrl,
+          title:title,
+          description:description,
         ),
       ),
     );

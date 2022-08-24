@@ -38,8 +38,7 @@ class RoutGenerator {
         return CupertinoPageRoute(builder: (_) => SearchScreen());
         case Routes.cartRoute:
         return CupertinoPageRoute(builder: (_) => CardScreen());
-        case Routes.blogDetailsScreen:
-        return CupertinoPageRoute(builder: (_) => BlogDetailsScreen());
+
         case Routes.discussionForums:
         return CupertinoPageRoute(builder: (_) => DiscussionForums());
         case Routes.createPost:

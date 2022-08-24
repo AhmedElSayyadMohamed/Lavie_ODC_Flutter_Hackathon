@@ -1,7 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lavie/presentation_layer/shared/resources/color_manager.dart';
-
 import '../component/default_navigation.dart';
 
 Widget blogDetailsBlogItem({
@@ -20,7 +20,16 @@ Widget blogDetailsBlogItem({
               width: double.infinity,
               height: MediaQuery.of(context).size.height*0.4,
               color: ColorManager.whiteAccent,
-              child: Image.asset(imageURL),
+              child:CachedNetworkImage(
+                fit: BoxFit.cover,
+                imageUrl:imageURL,
+                placeholder: (context, url) => Center(
+                  child: CircularProgressIndicator(
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+                errorWidget: (context, url, error) =>const Icon(Icons.error),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(5.0),
@@ -55,15 +64,13 @@ Widget blogDetailsBlogItem({
           physics:const BouncingScrollPhysics(),
           child: Padding(
             padding:  EdgeInsets.all(24.w),
-            child: Center(
-              child: Text(
-                description,
-                style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    height: 1.5,
-                    color:ColorManager.greyAccent
-                ),
+            child: Text(
+              description,
+              style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  height: 1.5,
+                  color:ColorManager.greyAccent
               ),
             ),
           ),

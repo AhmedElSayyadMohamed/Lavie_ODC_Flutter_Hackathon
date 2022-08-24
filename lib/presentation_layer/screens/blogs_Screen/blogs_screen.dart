@@ -1,9 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lavie/presentation_layer/shared/component/default_navigation.dart';
+import 'package:lavie/data_layer/bloc/GeneralCubit/general_cubit.dart';
+import 'package:lavie/data_layer/bloc/GeneralCubit/general_states.dart';
+import 'package:lavie/presentation_layer/screens/blogs_details_screen/blog_detail_screen.dart';
 import 'package:lavie/presentation_layer/shared/widget/blog_item.dart';
 
-import '../../../application_layer/routes_manager.dart';
 
 class BlogsScreen extends StatelessWidget {
   @override
@@ -15,22 +18,42 @@ class BlogsScreen extends StatelessWidget {
           style: Theme.of(context).appBarTheme.titleTextStyle,
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15.w),
-        child: Column(
-          children: [
-           blogItem(
-               context: context,
-               imageURL: "assets/images/tree2.png",
-               name: "5 Tips to treat plants",
-               description: "leaf, in botany, any usually leaf, in botany, any usually leaf, in botany, any usually ",
-               date: "2 Day ago",
-             onTap: () {
-                 Navigation.navigatorTo(context: context, navigatorTo: Routes.blogDetailsScreen);
-             },
-           ),
-          ],
-        ),
+      body: BlocConsumer<GeneralLavieCubit,GeneralLavieStates>(
+        listener:(context,state) {},
+        builder:(context,state){
+          var cubit =GeneralLavieCubit.get(context);
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15.w),
+            child: state is GetAllBlogsLoadingState?
+            Center(
+              child: CircularProgressIndicator(
+              color: Theme.of(context).primaryColor,
+            ),)
+                :ListView.builder(
+              shrinkWrap: true,
+              physics:const BouncingScrollPhysics(),
+              itemCount: cubit.blogsModel!.data!.blogs.length,
+              itemBuilder: (context,index)=>
+                  blogItem(
+                  context: context,
+                  imageURL: cubit.blogsModel!.data!.blogs[index].imageUrl,
+                  name: cubit.blogsModel!.data!.blogs[index].name,
+                  description: cubit.blogsModel!.data!.blogs[index].description,
+                  date: "2 Day ago",
+                  onTap: () {
+                 Navigator.push(context,
+                     CupertinoPageRoute(builder: (_) => BlogDetailsScreen(
+                   imageUrl: cubit.blogsModel!.data!.blogs[index].imageUrl ,
+                   title: cubit.blogsModel!.data!.blogs[index].name,
+                   description: cubit.blogsModel!.data!.blogs[index].description,
+                 ),
+                     )
+                 );
+                  }
+              ),
+            ),
+          );
+        },
       ),
     );
   }

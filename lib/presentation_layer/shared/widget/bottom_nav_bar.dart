@@ -23,7 +23,7 @@ Widget bottomNavBar({
         IconBroken.Notification,
         IconBroken.Profile,
       ],
-      
+
       onTap: (index) {
         cubit.changeBottomNavBarIndex(index);
       },

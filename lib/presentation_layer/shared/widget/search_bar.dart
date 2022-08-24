@@ -7,7 +7,7 @@ Widget searchBar({
    required BuildContext context,
    VoidCallback? onTap,
    ValueChanged<String>? onSubmitted,
-   required var searchController ,
+   var searchController ,
    required bool enabled,
 }) {
   return Padding(

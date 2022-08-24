@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:lavie/data_layer/dio_helper/end_points.dart';
 import 'package:lavie/presentation_layer/shared/resources/color_manager.dart';
 
 Widget blogItem({
@@ -22,13 +24,25 @@ Widget blogItem({
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
+              height: double.infinity,
               margin: const EdgeInsets.all(7),
               decoration: BoxDecoration(
                 color: ColorManager.whiteAccent,
                 borderRadius: BorderRadius.circular(10),
               ),
               width: MediaQuery.of(context).size.width * 0.42,
-              child: Image.asset(imageURL),
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              child:CachedNetworkImage(
+                fit: BoxFit.cover,
+                imageUrl:EndPoints.baseUrl+imageURL,
+                placeholder: (context, url) => Center(
+                  child: CircularProgressIndicator(
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+                errorWidget: (context, url, error) =>const Icon(Icons.error),
+              ),
+
             ),
             const SizedBox(
               width: 5,
@@ -52,7 +66,6 @@ Widget blogItem({
                   const SizedBox(
                     height: 10,
                   ),
-
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.42,
                     child: Text(
@@ -81,8 +94,6 @@ Widget blogItem({
                       )
                     ),
                   ),
-
-
                 ],
               ),
             ),

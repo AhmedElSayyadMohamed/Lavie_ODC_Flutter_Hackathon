@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+import 'package:lavie/data_layer/bloc/GeneralCubit/general_cubit.dart';
 import 'package:lavie/data_layer/dio_helper/dio_helper.dart';
 import 'package:lavie/data_layer/dio_helper/end_points.dart';
 import 'package:lavie/presentation_layer/models/register_user_model.dart';
@@ -41,8 +42,15 @@ class AuthenticationCubit extends Cubit<AuthenticationStates> {
     DioHelper.postData(url: EndPoints.signIn, data: {
       "password": password,
       "email": email,
-    }).then((value) {
+    }).then((value)async {
+
+
       userDataModel = UserDataModel.formJson(value.data);
+      token = userDataModel!.data!.accessToken.toString();
+
+        GeneralLavieCubit.get(context).getUserData();
+        GeneralLavieCubit.get(context).getProducts();
+        GeneralLavieCubit.get(context).getAllBlogs();
       emit(AuthenticationSuccessState(userDataModel));
     }).onError((DioError error, stackTrace) {
         debugPrint(
@@ -130,8 +138,13 @@ class AuthenticationCubit extends Cubit<AuthenticationStates> {
         "email": email,
         "password": password,
       }).then((value) {
-        debugPrint(value.data);
+
         userDataModel = UserDataModel.formJson(value.data);
+        token = userDataModel!.data!.accessToken.toString();
+
+          GeneralLavieCubit.get(context).getUserData();
+          GeneralLavieCubit.get(context).getProducts();
+          GeneralLavieCubit.get(context).getAllBlogs();
         emit(AuthenticationSuccessState(userDataModel));
       }).onError((DioError error, stackTrace) {
         debugPrint(
