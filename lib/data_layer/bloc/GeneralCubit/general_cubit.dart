@@ -1,8 +1,5 @@
-import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:lavie/data_layer/bloc/GeneralCubit/general_states.dart';
 import 'package:lavie/data_layer/database/local_database/database_helper.dart';
 import 'package:lavie/data_layer/dio_helper/dio_helper.dart';
@@ -15,9 +12,8 @@ import 'package:lavie/presentation_layer/screens/scan_screen/scan_screen.dart';
 import 'package:lavie/presentation_layer/screens/user_profile_screen/user_profile_screen.dart';
 import 'package:lavie/presentation_layer/shared/constant/constant.dart';
 import 'package:sqflite/sqflite.dart';
-
 import '../../../presentation_layer/models/blog_model.dart';
-import '../../../presentation_layer/models/user_model.dart';
+
 
 class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
   GeneralLavieCubit() : super(InitialState());
@@ -73,18 +69,18 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
   }
 
   void changProductWhichGoToCardIndex(index) {
-   products[index].inCard =!products[index].inCard;
+   products[index].inCard = !products[index].inCard;
     emit(ChangeProductWhichGoToCardIndexState());
   }
 
-  void incrementQuantityOfProduct({
+   incrementQuantityOfProduct({
     required int index,
   }) {
     products[index].quantity++;
     emit(IncrementQuantityOfProduct());
   }
 
-  void decrementQuantityOfProduct({
+   decrementQuantityOfProduct({
     required int index,
   }) {
     if (products[index].quantity > 1) {
@@ -175,6 +171,7 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
       url: EndPoints.getProducts,
       token: token,
     ).then((value) {
+      products =[];
       ProductModel.fromJson(value.data);
       products = ProductModel.allProduct;
       emit(GetProductsSuccessState());

@@ -25,7 +25,6 @@ class DatabaseHelper{
          getFromDatabase(productDatabase).then((value) {
            cubit.cardItems =value;
            cubit.emit(GetProductDatabaseSuccessfullyState());
-
          }).catchError((error) {
            print('error when get :${error.toString()}');
          });
@@ -78,6 +77,7 @@ static  Future<void> deleteRecordFromDatabase({
        cubit.cardItems=[];
        cubit.cardItems =value;
        cubit.emit(DeleteProductFromDatabaseState());
+
      }).catchError((error){
        print("error when get products from database after delete record :${error.toString()}");
      });

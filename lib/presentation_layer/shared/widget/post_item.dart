@@ -1,12 +1,14 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:lavie/data_layer/dio_helper/end_points.dart';
 
 
 Widget postItem({
   required BuildContext context,
-  required String imageUrl,
-  required String userName,
+  required String userImage,
+  required String firstName,
+  required String lastName,
   required String postDate,
   required String postTitle,
   required String postContaining,
@@ -40,9 +42,12 @@ Widget postItem({
                   ),
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   child: CachedNetworkImage(
-                    imageUrl:imageUrl,
+                    imageUrl: userImage,
                     fit: BoxFit.cover,
-                    placeholder: (context, url) =>Image.asset("assets/images/tree.png"),
+                    placeholder: (context, url) =>Center(child: CircularProgressIndicator(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    ),
                     errorWidget: (context, url, error) =>const Icon(Icons.error),
                   ),
                 ),
@@ -58,7 +63,7 @@ Widget postItem({
                     onTap:onTapUserName,
                     child: SizedBox(
                       child: Text(
-                        userName,
+                        firstName+lastName,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.headline3,
@@ -76,7 +81,6 @@ Widget postItem({
               ),
             ],
           ),
-
         ),
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -98,7 +102,7 @@ Widget postItem({
             style: Theme.of(context).textTheme.subtitle1,
           ),
         ),
-        true? Container(
+        Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           height: 200,
           width: double.infinity,
@@ -107,14 +111,15 @@ Widget postItem({
           ),
           clipBehavior: Clip.antiAliasWithSaveLayer,
           child: CachedNetworkImage(
-            imageUrl:postImage,
+            imageUrl:EndPoints.baseUrl+postImage,
             fit: BoxFit.cover,
             placeholder: (context, url) =>Center(child: CircularProgressIndicator(
               color: Theme.of(context).primaryColor,
-            )),
+            ),
+            ),
             errorWidget: (context, url, error) => const Icon(Icons.error),
           ),
-        ):const SizedBox(),
+        ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(

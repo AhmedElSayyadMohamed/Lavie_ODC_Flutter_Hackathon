@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lavie/data_layer/bloc/profileCubit/profile_cubit.dart';
 import 'package:lavie/data_layer/bloc/profileCubit/profile_states.dart';
 import 'package:lavie/presentation_layer/shared/component/default_button.dart';
+import 'package:lavie/presentation_layer/shared/component/shimmer.dart';
 import 'package:lavie/presentation_layer/shared/resources/color_manager.dart';
 import 'package:lavie/presentation_layer/shared/widget/post_item.dart';
 import 'package:lavie/presentation_layer/shared/widget/search_bar.dart';
@@ -31,6 +32,7 @@ class DiscussionForums extends StatelessWidget{
       ),
 
       floatingActionButton: FloatingActionButton(
+        elevation: 10,
         onPressed: () {
           Navigation.navigatorTo(context: context, navigatorTo: Routes.createPost);
         },
@@ -75,6 +77,7 @@ class DiscussionForums extends StatelessWidget{
                           Theme.of(context).backgroundColor,
                           onTap: (){
                             cubit.toggleBetweenAllForumAndMyForumButton(isALlForum:true);
+
                           },
                         ),
                         const SizedBox(
@@ -96,6 +99,7 @@ class DiscussionForums extends StatelessWidget{
                           Theme.of(context).primaryColor,
                           onTap: (){
                             cubit.toggleBetweenAllForumAndMyForumButton(isALlForum:false);
+                            cubit.getMyPosts();
                           },
                         ),
                       ],
@@ -105,25 +109,27 @@ class DiscussionForums extends StatelessWidget{
                     height: 20,
                   ),
                   Expanded(
-
-                    child: ListView.builder(
+                    child:state is GetMyPostLoadingState?
+                    const ShimmerLoadingScreen()
+                    :ListView.builder(
                       physics: const BouncingScrollPhysics(),
                         itemBuilder:(context,index)=> postItem(
                           context: context,
-                          imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNg6_HWyYywvuYTGWNN7l-Q93Ywo9z5SDywYBfS_tI&s",
-                          userName: "userName",
-                          postDate: "postDate",
-                          postTitle: "postTitle postTitle postTitle postTitle postTitle postTitle postTitle postTitle postTitle postTitlepostTitle",
-                          postContaining:"postTitle postTitle postTitle postTitle postTitle postTitle postTitle" ,
-                          postImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScX3VKCfxHMM9VC8k2uaSemeJl1DoLGpGmh5XQkLwt&s",
-                          likes: 15,
-                          replies: 15,
+                          userImage:cubit.myPostsModel!.data![index].user!.imageUrl.toString() ,
+                          firstName:cubit.myPostsModel!.data![index].user!.firstName.toString(),
+                          lastName: cubit.myPostsModel!.data![index].user!.lastName.toString(),
+                          postDate: "yesterday",
+                          postTitle:cubit.myPostsModel!.data![index].title.toString() ,
+                          postContaining:cubit.myPostsModel!.data![index].description.toString(),
+                          postImage:cubit.myPostsModel!.data![index].imageUrl.toString() ,
+                          likes:cubit.myPostsModel!.data![index].forumLikes!.length,
+                          replies:cubit.myPostsModel!.data![index].forumComments!.length,
                           onTapUserImage: () {  },
                           onTapReplies: () {  },
                           onTapLike: () {  },
                           onTapUserName: () {  },
                         ),
-                        itemCount: 10,
+                        itemCount:cubit.myPostsModel!.data!.length,
                     ),
                   ),
 

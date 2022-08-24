@@ -41,6 +41,7 @@ Widget listViewOfCards({
           context:context,
           id: cubit.cardItems[index]["id"],
         ).then((value) {
+          cubit.changProductWhichGoToCardIndex(index);
           Alarm.flutterToast(
             massage:"${cubit.cardItems[index]["title"]} deleted From Database Successfully",
             toastState: ToastState.success,

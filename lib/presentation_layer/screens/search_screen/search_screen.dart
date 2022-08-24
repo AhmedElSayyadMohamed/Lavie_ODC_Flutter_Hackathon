@@ -8,7 +8,6 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // history.addAll(CachHelper.getData(key: "searchHistory"));
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: SafeArea(

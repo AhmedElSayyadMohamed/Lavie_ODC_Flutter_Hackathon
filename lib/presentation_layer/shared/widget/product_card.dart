@@ -11,6 +11,7 @@ Widget productCard({
   required String? title,
   required int? price,
   required VoidCallback tapToCard,
+  required VoidCallback goToCard,
   required VoidCallback removeTap,
   required VoidCallback addTap,
   required int? quantity,
@@ -50,7 +51,7 @@ Widget productCard({
                       height: 5,
                     ),
                     Text(
-                      "${price.toString()} EL",
+                      "${price.toString()} EGP",
                       style: Theme.of(context).textTheme.headline1!.copyWith(
                         fontSize: 12,
                       )
@@ -61,9 +62,14 @@ Widget productCard({
                     Padding(
                       padding: const EdgeInsets.only(top: 5.0, bottom: 10),
                       child: cubit.products[index!].inCard ==true?
-                      const SizedBox(
-                        height:45 ,
-                      ):
+                      DefaultButton(
+                       onTap: goToCard,
+                       label:"Go To Card",
+                       labelStyle:Theme.of(context).textTheme.button ,
+                       borderRadius: 10,
+                       height: 45,
+                       buttonColor: Theme.of(context).primaryColor,
+                     ):
                       DefaultButton(
                         onTap: tapToCard,
                         label:"Add To Card",
@@ -88,11 +94,7 @@ Widget productCard({
             height: MediaQuery.of(context).size.height*0.25,
             child: CachedNetworkImage(
               imageUrl:EndPoints.baseUrl+imageURL!,
-              placeholder: (context, url) => Center(
-                child: CircularProgressIndicator(
-                  color: Theme.of(context).primaryColor,
-                ),
-              ),
+              placeholder: (context, url) => const SizedBox(),
               errorWidget: (context, url, error) =>const Icon(Icons.error),
             ),
           ),

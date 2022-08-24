@@ -1,8 +1,18 @@
 
 import 'package:flutter/material.dart';
 
-class Controllers{
+class AppControllers{
 
- static var emailController = TextEditingController();
- static var passwordController = TextEditingController();
+ static var logInEmailController = TextEditingController();
+ static var logInPasswordController = TextEditingController();
+
+ static var firstUserNameController = TextEditingController();
+ static var lastUserNameController = TextEditingController();
+ static var registerEmailController = TextEditingController();
+ static var registerPasswordController = TextEditingController();
+ static var confirmPasswordController = TextEditingController();
+
+ static var createPostTitleController = TextEditingController();
+ static var createPostDescriptionController = TextEditingController();
+
 }

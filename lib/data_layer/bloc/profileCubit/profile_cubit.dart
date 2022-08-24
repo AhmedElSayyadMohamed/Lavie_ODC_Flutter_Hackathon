@@ -1,13 +1,18 @@
-import 'dart:convert';
-import 'dart:io';
 
+import 'dart:convert';
+import 'dart:io' as Io;
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lavie/application_layer/routes_manager.dart';
+import 'package:lavie/data_layer/bloc/GeneralCubit/general_cubit.dart';
 import 'package:lavie/data_layer/bloc/profileCubit/profile_states.dart';
+import 'package:lavie/data_layer/cach_helper/cach_helper.dart';
 import 'package:lavie/data_layer/dio_helper/dio_helper.dart';
+import 'package:lavie/presentation_layer/models/my_posts_model.dart';
 import 'package:lavie/presentation_layer/models/user_model.dart';
-
+import 'package:lavie/presentation_layer/shared/component/default_navigation.dart';
 import '../../../presentation_layer/shared/constant/constant.dart';
 import '../../dio_helper/end_points.dart';
 
@@ -19,13 +24,25 @@ class ProfileCubit extends Cubit<ProfileStates> {
 
   //////// variables////////
   bool toggleBetweenAllForumAndMyForum = true;
+  bool isImagePicked=false;
+  final ImagePicker _imagePicker = ImagePicker();
+  XFile? postImage;
+  String? imageBase64;
+
 
   //////////////Methods///////////////////
   void toggleBetweenAllForumAndMyForumButton({required bool isALlForum}) {
     toggleBetweenAllForumAndMyForum = isALlForum;
     emit(ChangeIsAllForumState());
   }
+
+  void changeState(){
+    emit(ChangeState());
+  }
+
+  //get UserData
   Future<void> getUserData() async {
+
     emit(GetUserDataLoadingState());
     await DioHelper.getData(
       url: EndPoints.getUserData,
@@ -40,14 +57,12 @@ class ProfileCubit extends Cubit<ProfileStates> {
   }
 
 
-  final ImagePicker _imagePicker = ImagePicker();
-  XFile? postImage;
-  String? imageBase64;
-  Future pickImageFromGallary() async {
+  Future pickImage() async {
+
     await _imagePicker.pickImage(source: ImageSource.gallery).then((value) {
       postImage = XFile(value!.path);
       final bytes = File(postImage!.path).readAsBytesSync();
-      imageBase64 = base64Encode(bytes);
+      imageBase64 = "data:image/png;base64,"+base64Encode(bytes);
       print(imageBase64);
       emit(PickImageSuccessState());
     }).catchError((onError) {
@@ -56,15 +71,15 @@ class ProfileCubit extends Cubit<ProfileStates> {
     });
   }
 
-
-  void createNewPost({
+  Future<void> createNewPost({
     required String title,
     required String description,
     required imageBase64,
-  }){
+  })async{
+    print("token $token");
     emit(UploadPostLoadingState());
     DioHelper.postData(
-        url: EndPoints.uploadPost,token: token, data:{
+        url: EndPoints.uploadPost,token: "Bearer $token", data:{
       "title": title,
       "description": description,
       "imageBase64": imageBase64,
@@ -100,6 +115,36 @@ class ProfileCubit extends Cubit<ProfileStates> {
     });
   }
 
+  MyPostsModel? myPostsModel;
+  void getMyPosts(){
+     emit(GetMyPostLoadingState());
+
+    DioHelper.getData(url:EndPoints.getMyForums,token: token).then((value){
+      myPostsModel = MyPostsModel.fromJson(value.data);
+      print(myPostsModel!.data);
+      emit(GetMyPostSuccessState());
+    }).catchError((error){
+      print("error when get MyPosts :${error.toString()}");
+      emit(GetMyPostErrorState());
+    });
+  }
+
+  void logOut({
+  required BuildContext context,
+}){
+
+    CachHelper.removeData(key: "token").then((value) {
+      token ="";
+      GeneralLavieCubit.get(context).currentBottomNavIndex = 2;
+      GeneralLavieCubit.get(context).changeCategoryIndex(0);
+      Navigation.navigateAndFinish(
+        context: context,
+        navigatorTo:Routes.authenticationRoute,
+      );
+    }).catchError((error){
+      print("error When logOut :${error.toString()}");
+    });
+  }
 
 }
 

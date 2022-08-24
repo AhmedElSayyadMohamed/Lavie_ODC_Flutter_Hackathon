@@ -28,9 +28,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) =>
-          ProfileCubit()
-            ..getUserData()
-        ),
+          ProfileCubit()..
+            getUserData(),
+        )
       ],
       child: ScreenUtilInit(
         builder: (BuildContext context, Widget? child) {

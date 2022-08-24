@@ -8,10 +8,10 @@ import 'package:lavie/presentation_layer/shared/component/default_text_form_fiel
 import 'package:lavie/presentation_layer/shared/component/defualt_text_button.dart';
 import 'package:lavie/presentation_layer/shared/constant/constant.dart';
 import 'package:lavie/presentation_layer/shared/resources/color_manager.dart';
+import 'package:lavie/presentation_layer/shared/resources/controllers.dart';
 import 'package:lavie/presentation_layer/shared/widget/login_with_facebook_or_google.dart';
 
-import '../../../data_layer/database/local_database.dart';
-import '../../shared/resources/controllers.dart';
+import '../../../data_layer/database/local_database/remember_me_database.dart';
 
 
 var formKey = GlobalKey<FormState>();
@@ -38,7 +38,7 @@ Widget loginScreen({
         child: Column(
           children: [
             CustomTextFormField(
-              controller: Controllers.emailController,
+              controller:AppControllers.logInEmailController,
               keyboardType: TextInputType.emailAddress,
               formBorderRadius: 7,
               istextUpTextField: true,
@@ -53,7 +53,7 @@ Widget loginScreen({
               height: 20,
             ),
             CustomTextFormField(
-              controller: Controllers.passwordController,
+              controller: AppControllers.logInPasswordController,
               keyboardType: TextInputType.emailAddress,
               istextUpTextField: true,
               textUpTextField: "Password",
@@ -118,22 +118,22 @@ Widget loginScreen({
                     onTap: () {
                       if (formKey.currentState!.validate()) {
                         cubit.userLogin(
-                          email: Controllers.emailController.text,
-                          password: Controllers.passwordController.text,
+                          email: AppControllers.logInEmailController.text,
+                          password: AppControllers.logInPasswordController.text,
                           context: context,
                         ).then((value){
                           if(isRememberMe){
                             insertBoxToDataBase(
-                                email:Controllers.emailController.text,
-                                password:Controllers. passwordController.text,
+                                email:AppControllers.logInEmailController.text,
+                                password:AppControllers.logInPasswordController.text,
                                isRemember: isRememberMe,
                             );
 
                           }else{
                             Future.delayed(const Duration(seconds: 5)).then((value) {
                                database!.clear();
-                              Controllers.emailController.clear();
-                              Controllers. passwordController.clear();
+                               AppControllers.logInEmailController.clear();
+                               AppControllers.logInPasswordController.clear();
                             });
 
                           }

@@ -7,6 +7,10 @@ class ProductModel {
  static List<Product> tools = [];
 
   ProductModel.fromJson(Map<String, dynamic> json) {
+     allProduct = [];
+     plants = [];
+     seeds = [];
+     tools = [];
     if (json['data'] != null) {
       json['data'].forEach((element) {
           if(element["type"]=="PLANT"){

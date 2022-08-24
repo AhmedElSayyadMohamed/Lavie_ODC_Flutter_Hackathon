@@ -1,6 +1,6 @@
 
+import 'package:lavie/presentation_layer/shared/constant/constant.dart';
 
-import '../../presentation_layer/shared/constant/constant.dart';
 bool isRememberMe =false;
 
 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lavie/presentation_layer/shared/resources/color_manager.dart';
 
 class DefaultButton extends StatelessWidget {
   final double width;

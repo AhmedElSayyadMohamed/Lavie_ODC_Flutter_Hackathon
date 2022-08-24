@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lavie/data_layer/bloc/GeneralCubit/general_cubit.dart';
+import 'package:lavie/presentation_layer/screens/cart_screen/cart_screen.dart';
 import 'package:lavie/presentation_layer/shared/widget/product_card.dart';
 import '../../../data_layer/database/local_database/database_helper.dart';
 import '../../../data_layer/dio_helper/end_points.dart';
@@ -21,13 +23,14 @@ Widget greViewOfProducts({
       mainAxisSpacing: 2,
       mainAxisExtent: MediaQuery.of(context).size.height * 0.4,
     ),
+    itemCount:  cubit.products.length,
     itemBuilder: (context, index) =>
         productCard(
           context: context,
-          title:cubit.products[index].name,
-          price: cubit.products[index].price,
+          title:    cubit.products[index].name,
+          price:    cubit.products[index].price,
           quantity: cubit.products[index].quantity,
-          imageURL:cubit.products[index].imageUrl,
+          imageURL: cubit.products[index].imageUrl,
           index: index,
           tapToCard: ()async{
             cubit.changProductWhichGoToCardIndex(index);
@@ -48,7 +51,9 @@ Widget greViewOfProducts({
           },
           removeTap:(){cubit.decrementQuantityOfProduct(index: index);},
           addTap: (){ cubit.incrementQuantityOfProduct(index: index);},
+          goToCard: () {
+            Navigator.push(context, CupertinoPageRoute(builder:(context)=>CardScreen()));
+          },
         ),
-    itemCount:  cubit.products.length,
   );
 }

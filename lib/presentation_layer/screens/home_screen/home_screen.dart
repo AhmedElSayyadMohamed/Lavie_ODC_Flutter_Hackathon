@@ -83,8 +83,8 @@ class HomeScreen extends StatelessWidget {
                        child: CircularProgressIndicator(
                          color: Theme.of(context).primaryColor,
                        ),
-                     )
-                         : greViewOfProducts(context: context),
+                     ) :
+                     greViewOfProducts(context: context),
                    ),
                 ],
               ),

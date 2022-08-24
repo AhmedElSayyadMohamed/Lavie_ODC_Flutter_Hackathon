@@ -1,7 +1,7 @@
 abstract class ProfileStates{}
 
 class InitialState extends ProfileStates{}
-
+class ChangeState extends ProfileStates{}
 
 
 class GetUserDataLoadingState extends ProfileStates{}
@@ -23,4 +23,6 @@ class UploadPostErrorState extends ProfileStates{}
 
 class ChangeIsAllForumState extends ProfileStates{}
 
-// class UpdateUserDataState extends GeneralLavieStates{}
+class GetMyPostLoadingState extends ProfileStates{}
+class GetMyPostSuccessState extends ProfileStates{}
+class GetMyPostErrorState extends ProfileStates{}

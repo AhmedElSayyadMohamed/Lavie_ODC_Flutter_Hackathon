@@ -37,15 +37,9 @@ class CreatePostScreen extends StatelessWidget{
              child: createPostWidget(
                context: context,
                onTapOnAddPhoto: (){
-                cubit.pickImageFromGallary();
+                cubit.pickImage();
                },
-               onTapOnUploadPost: (){
-                 cubit.createNewPost(
-                     title:postTitleController.text,
-                     description: postDescriptionController.text,
-                   imageBase64: cubit.imageBase64,
-                 );
-               },
+
              ),
            ),
          ),

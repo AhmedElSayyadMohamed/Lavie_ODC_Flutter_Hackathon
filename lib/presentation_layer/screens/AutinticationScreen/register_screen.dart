@@ -4,13 +4,10 @@ import 'package:lavie/data_layer/bloc/AutinticationCubit/autintication_cubit.dar
 import 'package:lavie/data_layer/bloc/AutinticationCubit/autintication_states.dart';
 import 'package:lavie/presentation_layer/shared/component/default_button.dart';
 import 'package:lavie/presentation_layer/shared/component/default_text_form_field.dart';
+import 'package:lavie/presentation_layer/shared/resources/controllers.dart';
 import 'package:lavie/presentation_layer/shared/widget/login_with_facebook_or_google.dart';
 
-var firstUserNameController = TextEditingController();
-var lastUserNameController = TextEditingController();
-var emailController = TextEditingController();
-var passwordController = TextEditingController();
-var confirmPasswordController = TextEditingController();
+
 var formKey = GlobalKey<FormState>();
 
 Widget signUpScreen({
@@ -37,7 +34,7 @@ Widget signUpScreen({
               children: [
                 Expanded(
                   child: CustomTextFormField(
-                    controller: firstUserNameController,
+                    controller:AppControllers.firstUserNameController,
                     keyboardType: TextInputType.text,
                     formBorderRadius: 7,
                     istextUpTextField: true,
@@ -54,7 +51,7 @@ Widget signUpScreen({
                 ),
                 Expanded(
                   child: CustomTextFormField(
-                    controller: lastUserNameController,
+                    controller: AppControllers.lastUserNameController,
                     keyboardType: TextInputType.emailAddress,
                     formBorderRadius: 7,
                     istextUpTextField: true,
@@ -72,7 +69,7 @@ Widget signUpScreen({
               height: 10.h,
             ),
             CustomTextFormField(
-              controller: emailController,
+              controller: AppControllers.registerEmailController,
               keyboardType: TextInputType.emailAddress,
               formBorderRadius: 7,
               istextUpTextField: true,
@@ -87,7 +84,7 @@ Widget signUpScreen({
               height: 10.h,
             ),
             CustomTextFormField(
-              controller: passwordController,
+              controller: AppControllers.registerPasswordController,
               keyboardType: TextInputType.text,
               istextUpTextField: true,
               textUpTextField: "Password",
@@ -119,7 +116,7 @@ Widget signUpScreen({
               height: 10.h,
             ), 
             CustomTextFormField(
-              controller: confirmPasswordController,
+              controller:AppControllers.confirmPasswordController,
               keyboardType: TextInputType.emailAddress,
               istextUpTextField: true,
               textUpTextField: "ConfirmPassword",
@@ -145,11 +142,11 @@ Widget signUpScreen({
                     onTap: () {
                       if (formKey.currentState!.validate()) {
                         cubit.userSignUp(
-                          firstName: firstUserNameController.text,
-                          lastName: lastUserNameController.text,
-                          email: emailController.text,
-                          password: passwordController.text,
-                          confirmPassword: confirmPasswordController.text,
+                          firstName: AppControllers.firstUserNameController.text,
+                          lastName:AppControllers. lastUserNameController.text,
+                          email:AppControllers.registerEmailController.text,
+                          password:AppControllers.registerPasswordController.text,
+                          confirmPassword:AppControllers. confirmPasswordController.text,
                           context: context,
                         );
                       }

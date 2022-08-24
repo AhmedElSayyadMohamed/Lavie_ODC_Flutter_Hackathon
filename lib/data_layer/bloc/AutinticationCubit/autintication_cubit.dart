@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
 import 'package:lavie/data_layer/bloc/GeneralCubit/general_cubit.dart';
 import 'package:lavie/data_layer/bloc/profileCubit/profile_cubit.dart';
 import 'package:lavie/data_layer/dio_helper/dio_helper.dart';
@@ -10,14 +9,21 @@ import 'package:lavie/presentation_layer/models/register_user_model.dart';
 import 'package:lavie/presentation_layer/shared/component/flutter_toast.dart';
 import 'package:lavie/presentation_layer/shared/resources/controllers.dart';
 import '../../../presentation_layer/shared/constant/constant.dart';
-import '../../database/local_database.dart';
+import '../../database/local_database/remember_me_database.dart';
 import 'autintication_states.dart';
 
 class AuthenticationCubit extends Cubit<AuthenticationStates> {
+
   AuthenticationCubit() : super(AuthenticationInitialState());
   static AuthenticationCubit get(context) => BlocProvider.of(context);
+
+  ///////////variables///////////////
+
   bool isLoginSecure = true;
   bool isSignUpSecure = true;
+
+  ///////////methods////////////////
+
   void toggleLoginEyesOfPassword() {
     isLoginSecure = !isLoginSecure;
     emit(LogInPasswordSecurityState());
@@ -45,7 +51,6 @@ class AuthenticationCubit extends Cubit<AuthenticationStates> {
       "email": email,
     }).then((value)async {
 
-
       userDataModel = UserDataModel.formJson(value.data);
       token = userDataModel!.data!.accessToken.toString();
 
@@ -60,8 +65,8 @@ class AuthenticationCubit extends Cubit<AuthenticationStates> {
       });
   }
   void getLoginDataFromDataBase(){
-    Controllers.emailController.text =database!.get("email") ?? "";
-    Controllers.passwordController.text =database!.get("password")??"";
+    AppControllers.logInEmailController.text =database!.get("email") ?? "";
+    AppControllers.logInPasswordController.text =database!.get("password")??"";
     isRememberMe =database!.get("isRemember")??false;
   }
   // void signInWithFacebook() async {
@@ -140,8 +145,8 @@ class AuthenticationCubit extends Cubit<AuthenticationStates> {
         "password": password,
       }).then((value) {
 
-        userDataModel = UserDataModel.formJson(value.data);
-        token = userDataModel!.data!.accessToken.toString();
+          userDataModel = UserDataModel.formJson(value.data);
+          token = userDataModel!.data!.accessToken.toString();
 
           ProfileCubit.get(context).getUserData();
           GeneralLavieCubit.get(context).getProducts();

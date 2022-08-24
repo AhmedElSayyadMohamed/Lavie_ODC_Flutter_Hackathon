@@ -95,28 +95,11 @@ class ProfileScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           IconButton(
-                            onPressed: () {  },
-                            icon: Icon(
-                              Icons.arrow_back_ios,
-                              color: ColorManager.white,
-                            ),
-                          ),
-                          IconButton(
                             onPressed: () {
-                              CachHelper.removeData(key: "token").then((value) {
-                                token ="";
-                                GeneralLavieCubit.get(context).currentBottomNavIndex = 2;
-
-                                Navigation.navigateAndFinish(
-                                  context: context,
-                                  navigatorTo:Routes.authenticationRoute,
-                                );
-                              }).catchError((error){
-                                print("error When logOut :${error.toString()}");
-                              });
+                              cubit.logOut(context: context);
                             },
                             icon: const Icon(
                              Icons.logout_outlined,
@@ -161,7 +144,8 @@ class ProfileScreen extends StatelessWidget {
                             DefaultButton(
                               height: 50,
                               onTap:(){
-                                Navigation.navigatorTo(context: context, navigatorTo:Routes.discussionForums);
+                                cubit.getMyPosts();
+                                  Navigation.navigatorTo(context: context, navigatorTo:Routes.discussionForums);
                               },
                               label: "Forums",
                               labelStyle:Theme.of(context).textTheme.caption ,
@@ -191,12 +175,14 @@ class ProfileScreen extends StatelessWidget {
                                   borderColor:ColorManager.black,
                                   borderRadius: 10,
                                   isButton: true,
-                                  onTap: (){},
+                                  onTap: (){
+
+
+                                  },
                                 ),
                                 const SizedBox(
                                   height:20,
                                 ),
-
                                 profileCardItem(
                                   context: context,
                                   editLogo: AssetsManager.editLogo,
