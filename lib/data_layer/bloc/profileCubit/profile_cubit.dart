@@ -20,7 +20,6 @@ class ProfileCubit extends Cubit<ProfileStates> {
   //////// variables////////
   bool toggleBetweenAllForumAndMyForum = true;
 
-
   //////////////Methods///////////////////
   void toggleBetweenAllForumAndMyForumButton({required bool isALlForum}) {
     toggleBetweenAllForumAndMyForum = isALlForum;

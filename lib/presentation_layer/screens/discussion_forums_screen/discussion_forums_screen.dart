@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lavie/data_layer/bloc/GeneralCubit/general_cubit.dart';
-import 'package:lavie/data_layer/bloc/GeneralCubit/general_states.dart';
+
 import 'package:lavie/data_layer/bloc/profileCubit/profile_cubit.dart';
+import 'package:lavie/data_layer/bloc/profileCubit/profile_states.dart';
 import 'package:lavie/presentation_layer/shared/component/default_button.dart';
 import 'package:lavie/presentation_layer/shared/resources/color_manager.dart';
 import 'package:lavie/presentation_layer/shared/widget/post_item.dart';
@@ -40,7 +40,7 @@ class DiscussionForums extends StatelessWidget{
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
-        child: BlocConsumer<GeneralLavieCubit,GeneralLavieStates>(
+        child: BlocConsumer<ProfileCubit,ProfileStates>(
           listener: (context,state){},
           builder: (context,state){
             var cubit =ProfileCubit.get(context);
