@@ -2,13 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lavie/data_layer/bloc/GeneralCubit/general_cubit.dart';
-import 'package:lavie/data_layer/bloc/GeneralCubit/general_states.dart';
 import 'package:lavie/data_layer/cach_helper/cach_helper.dart';
 import 'package:lavie/presentation_layer/shared/component/default_navigation.dart';
 import 'package:lavie/presentation_layer/shared/constant/constant.dart';
 import 'package:lavie/presentation_layer/shared/resources/assets_manger.dart';
 import 'package:lavie/presentation_layer/shared/resources/color_manager.dart';
+import 'package:lavie/presentation_layer/shared/widget/profile_card_point_and_update_user_data.dart';
 import '../../../application_layer/routes_manager.dart';
+import '../../../data_layer/bloc/profileCubit/profile_cubit.dart';
+import '../../../data_layer/bloc/profileCubit/profile_states.dart';
 import '../../models/user_model.dart';
 import '../../shared/component/default_button.dart';
 
@@ -17,11 +19,11 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<GeneralLavieCubit,GeneralLavieStates>(
+    return BlocConsumer<ProfileCubit,ProfileStates>(
 
       listener: (context,state){},
       builder: (context,state){
-        var cubit =GeneralLavieCubit.get(context);
+        var cubit =ProfileCubit.get(context);
         return  Scaffold(
           backgroundColor:ColorManager.black ,
           body: SafeArea(
@@ -101,7 +103,7 @@ class ProfileScreen extends StatelessWidget {
                             onPressed: () {
                               CachHelper.removeData(key: "token").then((value) {
                                 token ="";
-                                cubit.currentBottomNavIndex=2;
+                                GeneralLavieCubit.get(context).currentBottomNavIndex = 2;
 
                                 Navigation.navigateAndFinish(
                                   context: context,
@@ -221,48 +223,7 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-Widget profileCardItem({
-  required BuildContext context,
-  required String editLogo,
-  required String label,
-  required  labelStyle,
-  required Color backgroundColor,
-  required Color borderColor,
-  required double borderRadius ,
-  VoidCallback? onTap ,
-  bool isButton = false,
-}){
 
-  return Container(
-    padding:const EdgeInsetsDirectional.all(15),
-    width: double.infinity,
-    height:MediaQuery.of(context).size.height*0.1,
-    decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(borderRadius),
-        border:Border.all(
-          color: borderColor,
-        ),
-    ),
-    child: Row(
-      children: [
-        Image.asset(editLogo),
-        const SizedBox(
-          width: 10,
-        ),
-        Text(
-          label,
-          style: labelStyle,
-        ),
-        const Spacer(),
-        isButton?IconButton(
-          onPressed:onTap,
-          icon:const Icon(Icons.arrow_forward),
-        ):const SizedBox(),
-      ],
-    ),
-  );
-}
 
 
 

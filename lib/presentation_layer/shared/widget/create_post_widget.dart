@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:lavie/data_layer/bloc/GeneralCubit/general_cubit.dart';
-import 'package:lavie/data_layer/bloc/GeneralCubit/general_states.dart';
+import 'package:lavie/data_layer/bloc/profileCubit/profile_states.dart';
+
 import 'package:lavie/presentation_layer/shared/component/default_button.dart';
 import 'package:lavie/presentation_layer/shared/component/default_text_form_field.dart';
+
+import '../../../data_layer/bloc/profileCubit/profile_cubit.dart';
 
 var postTitleController =TextEditingController();
 var postDescriptionController =TextEditingController();
@@ -15,7 +17,7 @@ Widget createPostWidget({
   required VoidCallback onTapOnUploadPost,
 }){
 
-var cubit =GeneralLavieCubit.get(context);
+var cubit =ProfileCubit.get(context);
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
     mainAxisAlignment: MainAxisAlignment.center,

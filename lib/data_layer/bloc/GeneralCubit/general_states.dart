@@ -7,17 +7,7 @@ class ChangeCategoryIndexState extends GeneralLavieStates{}
 
 class ChangeProductWhichGoToCardIndexState extends GeneralLavieStates{}
 
-class ChangeIsAllForumState extends GeneralLavieStates{}
 
-class UpdateUserDataState extends GeneralLavieStates{}
-
-class GetUserDataLoadingState extends GeneralLavieStates{}
-class GetUserDataSuccessState extends GeneralLavieStates{}
-class GetUserDataErrorState extends GeneralLavieStates{}
-
-class EditUserDataLoadingState extends GeneralLavieStates{}
-class EditUserDataSuccessState extends GeneralLavieStates{}
-class EditUserDataErrorState extends GeneralLavieStates{}
 
 class GetAllBlogsLoadingState extends GeneralLavieStates{}
 class GetAllBlogsSuccessState extends GeneralLavieStates{}
@@ -42,11 +32,3 @@ class GetProductDatabaseSuccessfullyState extends GeneralLavieStates{}
 class GetProductDatabaseErrorState extends GeneralLavieStates{}
 
 class DeleteProductFromDatabaseState extends GeneralLavieStates{}
-
-class PickImageLoadingState extends GeneralLavieStates{}
-class PickImageSuccessState extends GeneralLavieStates{}
-class PickImageErrorState extends GeneralLavieStates{}
-
-class UploadPostLoadingState extends GeneralLavieStates{}
-class UploadPostSuccessState extends GeneralLavieStates{}
-class UploadPostErrorState extends GeneralLavieStates{}

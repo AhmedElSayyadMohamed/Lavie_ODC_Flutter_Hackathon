@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:lavie/data_layer/bloc/GeneralCubit/general_cubit.dart';
+import 'package:lavie/data_layer/bloc/profileCubit/profile_cubit.dart';
 import 'package:lavie/data_layer/dio_helper/dio_helper.dart';
 import 'package:lavie/data_layer/dio_helper/end_points.dart';
 import 'package:lavie/presentation_layer/models/register_user_model.dart';
@@ -48,7 +49,7 @@ class AuthenticationCubit extends Cubit<AuthenticationStates> {
       userDataModel = UserDataModel.formJson(value.data);
       token = userDataModel!.data!.accessToken.toString();
 
-        GeneralLavieCubit.get(context).getUserData();
+        ProfileCubit.get(context).getUserData();
         GeneralLavieCubit.get(context).getProducts();
         GeneralLavieCubit.get(context).getAllBlogs();
       emit(AuthenticationSuccessState(userDataModel));
@@ -142,7 +143,7 @@ class AuthenticationCubit extends Cubit<AuthenticationStates> {
         userDataModel = UserDataModel.formJson(value.data);
         token = userDataModel!.data!.accessToken.toString();
 
-          GeneralLavieCubit.get(context).getUserData();
+          ProfileCubit.get(context).getUserData();
           GeneralLavieCubit.get(context).getProducts();
           GeneralLavieCubit.get(context).getAllBlogs();
         emit(AuthenticationSuccessState(userDataModel));

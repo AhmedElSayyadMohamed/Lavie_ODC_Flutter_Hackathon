@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lavie/data_layer/bloc/GeneralCubit/general_cubit.dart';
-import 'package:lavie/data_layer/bloc/GeneralCubit/general_states.dart';
+import 'package:lavie/data_layer/bloc/profileCubit/profile_states.dart';
 import 'package:lavie/presentation_layer/shared/component/default_navigation.dart';
 import 'package:lavie/presentation_layer/shared/widget/create_post_widget.dart';
+
+import '../../../data_layer/bloc/profileCubit/profile_cubit.dart';
 
 class CreatePostScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
 
-   return BlocConsumer<GeneralLavieCubit,GeneralLavieStates>(
+   return BlocConsumer<ProfileCubit,ProfileStates>(
      listener: (context,state){},
      builder:(context,state){
-       var cubit =GeneralLavieCubit.get(context);
+       var cubit =ProfileCubit.get(context);
        return Scaffold(
          appBar: AppBar(
            leading: IconButton(
