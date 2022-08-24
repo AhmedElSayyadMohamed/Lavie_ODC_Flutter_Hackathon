@@ -25,10 +25,10 @@ Widget greViewOfProducts({
     itemBuilder: (context, index) =>
         productCard(
           context: context,
-          title:ProductModel.allProduct[index].name,
-          price: ProductModel.allProduct[index].price,
-          quantity: ProductModel.allProduct[index].quantity,
-          imageURL:ProductModel.allProduct[index].imageUrl,
+          title:cubit.products[index].name,
+          price: cubit.products[index].price,
+          quantity: cubit.products[index].quantity,
+          imageURL:cubit.products[index].imageUrl,
           index: index,
 
           tapToCard: ()async{
@@ -45,20 +45,11 @@ Widget greViewOfProducts({
                 massage:"${ProductModel.allProduct[index].name} added to Card Successfully",
                 toastState: ToastState.success,
               );
-            }).catchError((error){
-              print("error when add ${ProductModel.allProduct[index].name} to Card :${error.toString()} ");
-            });
+            }).catchError((error){ print("error when add ${ProductModel.allProduct[index].name} to Card :${error.toString()} ");});
           },
-          removeTap:(){
-            cubit.decrementQuantityOfProduct(index: index);
-
-          },
-          addTap: (){
-            cubit.incrementQuantityOfProduct(index: index);
-
-          },
-
+          removeTap:(){cubit.decrementQuantityOfProduct(index: index);},
+          addTap: (){ cubit.incrementQuantityOfProduct(index: index);},
         ),
-    itemCount:  ProductModel.allProduct.length,
+    itemCount:  cubit.products.length,
   );
 }

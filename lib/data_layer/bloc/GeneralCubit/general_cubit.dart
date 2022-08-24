@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lavie/data_layer/bloc/GeneralCubit/general_states.dart';
 import 'package:lavie/data_layer/database/local_database/database_helper.dart';
 import 'package:lavie/data_layer/dio_helper/dio_helper.dart';
@@ -11,6 +14,7 @@ import 'package:lavie/presentation_layer/screens/notification_screen/notificatio
 import 'package:lavie/presentation_layer/screens/scan_screen/scan_screen.dart';
 import 'package:lavie/presentation_layer/screens/user_profile_screen/user_profile_screen.dart';
 import 'package:lavie/presentation_layer/shared/constant/constant.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../../presentation_layer/models/blog_model.dart';
@@ -27,7 +31,7 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
   int increaseProductInCard=0;
   int decreaseProductInCard=0;
   int totalOfPill = 0;
-
+  List<Product> products=[];
   List<dynamic> cardItems = [];
 
   List<Widget> screen = [
@@ -51,6 +55,19 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
 
   void changeCategoryIndex(index) {
     filterCategoryButtonIndex = index;
+
+    if(index==0){
+      products = ProductModel.allProduct;
+    }
+    if(index==1) {
+      products = ProductModel.plants;
+    } else if(index ==2){
+      products = ProductModel.seeds;
+    }
+    else if(index ==3){
+      products =ProductModel.tools;
+    }
+
     emit(ChangeCategoryIndexState());
   }
 
@@ -115,8 +132,10 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
 
     return totalOfPill;
   }
- // create ProductDatabase
-   void initProductDatabase()async{
+
+
+  // create ProductDatabase
+  void initProductDatabase()async{
 
     openDatabase("product.db",
         version: 1,
@@ -159,6 +178,48 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
     });
 
   }
+
+
+  // pickImage
+  final ImagePicker _imagePicker = ImagePicker();
+  File? postImage;
+
+  // void pickImageFromGallary({
+  //   bool isProfileImage = false,
+  //   bool isPostImage = false,
+  // }) async {
+  //
+  //   //Check Permissions
+  //   var permissionStatus = await Permission.photos.status;
+  //   await Permission.photos.request();
+  //
+  //   if (permissionStatus.isGranted) {
+  //     //Select Image
+  //     var pikedFile = await _imagePicker.pickImage(source: ImageSource.gallery);
+  //     if (pikedFile != null) {
+  //       if (ispostImage) {
+  //         emit(PickPostImageLoadingState());
+  //         postImage = File(pikedFile.path);
+  //         print("post image: ${postImage}");
+  //
+  //         ispostImage = false;
+  //         emit(PickPostImageSuccessState());
+  //       }
+  //       if (isProfileImage) {
+  //         profileImage = File(pikedFile.path);
+  //       } else {
+  //         coverImage = File(pikedFile.path);
+  //       }
+  //
+  //       emit(PickCoverImageSuccessState());
+  //     } else {
+  //       print('No Image Path Received');
+  //       emit(PickCoverImageErrorState());
+  //     }
+  //   } else {
+  //     print("permission to gallary is denied");
+  //   }
+  // }
 
   Future<void> editUserData({
   required String firstName,
@@ -206,14 +267,15 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
 
 
   //getProducts
-  ProductModel? productModel;
   Future<void> getProducts()async {
     emit(GetProductsLoadingState());
    await DioHelper.getData(
       url:EndPoints.getProducts,
       token:token,
    ).then((value){
-      productModel=ProductModel.fromJson(value.data) ;
+
+      ProductModel.fromJson(value.data) ;
+      products =ProductModel.allProduct;
       emit(GetProductsSuccessState());
   }).catchError((error){
      debugPrint("error When GetProducts :${error.toString()}");

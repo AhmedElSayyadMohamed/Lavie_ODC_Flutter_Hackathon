@@ -40,4 +40,9 @@ class AddProductToDatabaseErrorState extends GeneralLavieStates{}
 class GetProductDatabaseLoadingState extends GeneralLavieStates{}
 class GetProductDatabaseSuccessfullyState extends GeneralLavieStates{}
 class GetProductDatabaseErrorState extends GeneralLavieStates{}
+
 class DeleteProductFromDatabaseState extends GeneralLavieStates{}
+
+class PickCoverImageLoadingState extends GeneralLavieStates{}
+class PickCoverImageSuccessState extends GeneralLavieStates{}
+class PickCoverImageErrorState extends GeneralLavieStates{}

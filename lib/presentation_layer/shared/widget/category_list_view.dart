@@ -10,7 +10,6 @@ Widget categoryListView({
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.06,
       child: ListView.separated(
-        // controller: categoryController,
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) => 

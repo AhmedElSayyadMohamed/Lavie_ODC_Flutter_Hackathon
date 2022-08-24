@@ -2,9 +2,9 @@
 class ProductModel {
 
  static List<Product> allProduct = [];
-  List<Product> plants = [];
-  List<Product> seeds = [];
-  List<Product> tools = [];
+ static List<Product> plants = [];
+ static List<Product> seeds = [];
+ static List<Product> tools = [];
 
   ProductModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
