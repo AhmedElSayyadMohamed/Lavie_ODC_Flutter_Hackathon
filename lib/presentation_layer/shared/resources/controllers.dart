@@ -15,4 +15,8 @@ class AppControllers{
  static var createPostTitleController = TextEditingController();
  static var createPostDescriptionController = TextEditingController();
 
+ static var productsSearchController = TextEditingController();
+ static var postsSearchController = TextEditingController();
+
+
 }

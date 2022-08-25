@@ -7,6 +7,7 @@ Widget searchBar({
    required BuildContext context,
    VoidCallback? onTap,
    ValueChanged<String>? onSubmitted,
+   ValueChanged<String>? onChanged,
    var searchController ,
    required bool enabled,
 }) {
@@ -20,7 +21,7 @@ Widget searchBar({
           borderRadius: BorderRadius.circular(10),
         ),
         child: TextField(
-          onSubmitted: onSubmitted,
+
           controller: searchController,
           decoration: InputDecoration(
             hintText: "Search",
@@ -41,6 +42,8 @@ Widget searchBar({
               color:AppColor.searchIconSearchBar,
             ),
           ),
+          onSubmitted: onSubmitted,
+          onChanged: onChanged ,
         ),
       ),
     ),

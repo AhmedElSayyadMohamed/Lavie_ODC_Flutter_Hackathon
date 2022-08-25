@@ -166,7 +166,5 @@ class AuthenticationCubit extends Cubit<AuthenticationStates> {
     }
   }
 
-
-
 }
 

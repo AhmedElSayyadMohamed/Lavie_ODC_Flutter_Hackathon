@@ -32,3 +32,4 @@ class GetProductDatabaseSuccessfullyState extends GeneralLavieStates{}
 class GetProductDatabaseErrorState extends GeneralLavieStates{}
 
 class DeleteProductFromDatabaseState extends GeneralLavieStates{}
+class SearchAboutProductState extends GeneralLavieStates{}

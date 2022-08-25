@@ -14,7 +14,6 @@ import 'package:lavie/presentation_layer/shared/constant/constant.dart';
 import 'package:sqflite/sqflite.dart';
 import '../../../presentation_layer/models/blog_model.dart';
 
-
 class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
   GeneralLavieCubit() : super(InitialState());
 
@@ -28,8 +27,12 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
   int increaseProductInCard = 0;
   int decreaseProductInCard = 0;
   int totalOfPill = 0;
+  bool productNotFoundAfterSearch = false;
   List<Product> products = [];
   List<dynamic> cardItems = [];
+  List<Product> productsSearchResult = [];
+  List<String> productsSearchHistory =[];
+
   List<Widget> screen = [
     BlogsScreen(),
     const ScanScreen(),
@@ -47,40 +50,44 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
     emit(ChangeBottomNavIndexState());
   }
 
-  void changeCategoryIndex(index) {
+  //filter product by category
+  void filterProductByCategory(index) {
     filterCategoryButtonIndex = index;
 
     if (index == 0) {
-      products=[];
+      products = [];
       products.addAll(ProductModel.allProduct);
     }
     if (index == 1) {
-      products=[];
-      products.addAll(ProductModel.plants) ;
+      products = [];
+      products.addAll(ProductModel.plants);
     } else if (index == 2) {
-      products=[];
+      products = [];
       products.addAll(ProductModel.seeds);
     } else if (index == 3) {
-      products=[];
-      products.addAll(ProductModel.tools) ;
+      products = [];
+      products.addAll(ProductModel.tools);
     }
 
     emit(ChangeCategoryIndexState());
   }
 
+  // move product to card
   void changProductWhichGoToCardIndex(index) {
-   products[index].inCard = !products[index].inCard;
+    products[index].inCard = !products[index].inCard;
     emit(ChangeProductWhichGoToCardIndexState());
   }
 
-   incrementQuantityOfProduct({
+  //increment  when product in homeScreen
+  incrementQuantityOfProduct({
     required int index,
   }) {
     products[index].quantity++;
     emit(IncrementQuantityOfProduct());
   }
 
-   decrementQuantityOfProduct({
+  //decrement  when product in homeScreen
+  decrementQuantityOfProduct({
     required int index,
   }) {
     if (products[index].quantity > 1) {
@@ -89,6 +96,7 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
     }
   }
 
+  //increment  when product in card
   void incrementQuantityOfProductInCard({
     required int quantity,
   }) {
@@ -97,6 +105,7 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
     emit(IncrementQuantityOfProduct());
   }
 
+  //decrement  when product in card
   void decrementQuantityOfProductInCard({
     required int quantity,
   }) {
@@ -107,6 +116,7 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
     }
   }
 
+  //calculate pill
   int calculateTotalOfPill() {
     int total = 0;
     totalOfPill = 0;
@@ -147,9 +157,9 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
     });
   }
 
-
   //getBLogs
   BlogDataModel? blogsModel;
+
   Future<void> getAllBlogs() async {
     emit(GetAllBlogsLoadingState());
     await DioHelper.getData(
@@ -171,7 +181,7 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
       url: EndPoints.getProducts,
       token: token,
     ).then((value) {
-      products =[];
+      products = [];
       ProductModel.fromJson(value.data);
       products = ProductModel.allProduct;
       emit(GetProductsSuccessState());
@@ -179,5 +189,14 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
       debugPrint("error When GetProducts :${error.toString()}");
       emit(GetProductsErrorState());
     });
+  }
+
+  Future<void> searchByName({
+    required String value,
+    required BuildContext context,
+  }) async{
+      var cubit = GeneralLavieCubit.get(context);
+      cubit.productsSearchResult = cubit.products.where((element) => element.name!.toLowerCase().startsWith(value)).toList();
+      emit(SearchAboutProductState());
   }
 }

@@ -31,7 +31,12 @@ class CardScreen extends StatelessWidget {
         builder: (context,state){
           var cubit =GeneralLavieCubit.get(context);
           return cubit.cardItems.isEmpty?
-            emptyCardItem(context: context) :
+            emptyCardItem(
+                context: context,
+                title: "Your cart is empty",
+                description: "Sorry, the keyword you entered cannot be found,"
+                    " please check again or search with another keyword.",
+            ) :
             Column(
             children: [
               Expanded(

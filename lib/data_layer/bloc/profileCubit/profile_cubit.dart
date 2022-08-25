@@ -136,7 +136,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
     CachHelper.removeData(key: "token").then((value) {
       token ="";
       GeneralLavieCubit.get(context).currentBottomNavIndex = 2;
-      GeneralLavieCubit.get(context).changeCategoryIndex(0);
+      GeneralLavieCubit.get(context).filterProductByCategory(0);
       Navigation.navigateAndFinish(
         context: context,
         navigatorTo:Routes.authenticationRoute,

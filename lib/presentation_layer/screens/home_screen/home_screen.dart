@@ -3,17 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lavie/data_layer/bloc/GeneralCubit/general_cubit.dart';
 import 'package:lavie/data_layer/bloc/GeneralCubit/general_states.dart';
-import 'package:lavie/data_layer/database/local_database/database_helper.dart';
-import 'package:lavie/data_layer/dio_helper/end_points.dart';
+import 'package:lavie/data_layer/cach_helper/cach_helper.dart';
 import 'package:lavie/presentation_layer/shared/component/default_navigation.dart';
-import 'package:lavie/presentation_layer/shared/component/flutter_toast.dart';
 import 'package:lavie/presentation_layer/shared/resources/assets_manger.dart';
 import 'package:lavie/presentation_layer/shared/widget/card_botton.dart';
 import 'package:lavie/presentation_layer/shared/widget/gredview_of_products.dart';
-import 'package:lavie/presentation_layer/shared/widget/product_card.dart';
 import 'package:lavie/presentation_layer/shared/widget/search_bar.dart';
 import '../../../application_layer/routes_manager.dart';
-import '../../models/product_model.dart';
 import '../../shared/widget/category_list_view.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -52,6 +48,9 @@ class HomeScreen extends StatelessWidget {
                         child: searchBar(
                           context: context,
                           onTap: () {
+                            cubit.productsSearchHistory =
+                                 CachHelper.sharedPreferences.getStringList("productSearchHistory")??[];
+
                             Navigation.navigatorTo(
                               context: context,
                               navigatorTo: Routes.searchRoute,

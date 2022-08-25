@@ -84,7 +84,6 @@ Widget cardItem({
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-
                       height: 40,
                       decoration: BoxDecoration(
                         color:ColorManager.lightWhite ,

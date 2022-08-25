@@ -7,9 +7,10 @@ class BlogDataModel {
 }
 
 class BlogsModel {
-  List<dynamic> blogs=[];
+   List<dynamic> blogs=[];
 
   BlogsModel.fromJson(Map<String, dynamic> json) {
+
     if (json['plants'] != null) {
       json['plants'].forEach((element) {
         blogs.add(PlantData.fromJson(element));
@@ -27,6 +28,7 @@ class BlogsModel {
       });
     }
   }
+
 }
 
 class PlantData{

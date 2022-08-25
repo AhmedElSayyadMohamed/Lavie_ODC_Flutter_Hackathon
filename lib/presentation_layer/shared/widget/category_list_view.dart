@@ -18,7 +18,7 @@ Widget categoryListView({
           index: index,
           categoryName:categoryList[index] ,
           onTap: (){
-            cubit.changeCategoryIndex(index);
+            cubit.filterProductByCategory(index);
           },
         ),
         separatorBuilder: (context, index) => 
