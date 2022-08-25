@@ -22,7 +22,13 @@ class UploadPostSuccessState extends ProfileStates{}
 class UploadPostErrorState extends ProfileStates{}
 
 class ChangeIsAllForumState extends ProfileStates{}
+class ChangeAddLikeState extends ProfileStates{}
 
 class GetMyPostLoadingState extends ProfileStates{}
 class GetMyPostSuccessState extends ProfileStates{}
 class GetMyPostErrorState extends ProfileStates{}
+
+
+class AddLikeLoadingState extends ProfileStates{}
+class AddLikeSuccessState extends ProfileStates{}
+class AddLikeErrorState extends ProfileStates{}

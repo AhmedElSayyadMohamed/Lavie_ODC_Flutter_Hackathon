@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lavie/presentation_layer/shared/resources/assets_manger.dart';
 import 'package:lavie/presentation_layer/shared/resources/color_manager.dart';
 
 Widget notificationItem({
@@ -14,13 +15,16 @@ Widget notificationItem({
     padding:  EdgeInsets.symmetric(horizontal:16.w),
     child: ListTile(
       leading:  CircleAvatar(
-        backgroundImage: AssetImage(imageURL),
+        backgroundImage: NetworkImage(imageURL!=""?imageURL:AssetsManager.userImageNotFoundInNotification),
       ),
-      title: Text(
-        notificationMassege,
-        style: Theme.of(context).textTheme.caption!.copyWith(
-              color: ColorManager.black,
-            ),
+      title: Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: Text(
+          notificationMassege,
+          style: Theme.of(context).textTheme.caption!.copyWith(
+                color: ColorManager.black,
+              ),
+        ),
       ),
       subtitle: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),

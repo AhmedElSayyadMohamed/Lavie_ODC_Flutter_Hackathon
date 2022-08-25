@@ -48,7 +48,7 @@ class ProfileScreen extends StatelessWidget {
                       height: MediaQuery.of(context).size.height * 0.37,
                       child:CachedNetworkImage(
                         fit: BoxFit.cover,
-                        imageUrl:UserModel.getImageUrl(),
+                        imageUrl:cubit.userModel!.data!.imageUrl.toString(),
                         placeholder: (context, url) => Center(
                           child: CircularProgressIndicator(
                             color: Theme.of(context).primaryColor,
@@ -74,7 +74,7 @@ class ProfileScreen extends StatelessWidget {
                             clipBehavior: Clip.antiAliasWithSaveLayer,
                             child: CachedNetworkImage(
                               fit: BoxFit.cover,
-                              imageUrl:UserModel.getImageUrl(),
+                              imageUrl:cubit.userModel!.data!.imageUrl.toString(),
                               placeholder: (context, url) => Center(
                                   child: CircularProgressIndicator(
                                     color: Theme.of(context).primaryColor,
@@ -86,7 +86,9 @@ class ProfileScreen extends StatelessWidget {
                           const SizedBox(
                             height: 15,
                           ),
-                          Text(UserModel.getName(),style:Theme.of(context).textTheme.headline2!.copyWith(
+                          Text(cubit.userModel!.data!.firstName.toString()+
+                              cubit.userModel!.data!.lastName.toString()
+                            ,style:Theme.of(context).textTheme.headline2!.copyWith(
                             color: ColorManager.white,
                           ) ,),
                         ],
@@ -131,7 +133,7 @@ class ProfileScreen extends StatelessWidget {
                             profileCardItem(
                               context: context,
                               editLogo: AssetsManager.pointLogo,
-                              label:"You have  ${UserModel.getUserPoints()} points",
+                              label:"You have  ${cubit.userModel!.data!.userPoints} points",
                               labelStyle: Theme.of(context).textTheme.headline1,
                               backgroundColor:ColorManager.whiteCyan,
                               borderColor:ColorManager.whiteCyan,

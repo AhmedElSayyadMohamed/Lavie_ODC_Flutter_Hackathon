@@ -21,11 +21,37 @@ class HomeScreen extends StatelessWidget {
       builder: (context, state) {
         var cubit =GeneralLavieCubit.get(context);
         return Scaffold(
+          appBar: AppBar(
+            actions: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5),
+                child: InkWell(
+                  onTap: (){
+
+                  },
+                  child: SizedBox(
+                    height: 30.0,
+                    width: 30.0,
+                    child: FittedBox(
+                      child: FloatingActionButton(
+                        onPressed: () {},
+                        child:Icon(
+                          Icons.question_mark_outlined,
+                        ),
+                        mini: true,
+                        backgroundColor: Theme.of(context).primaryColor,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+
+            ],
+          ),
           backgroundColor: Theme.of(context).backgroundColor,
           body: SafeArea(
             child: Padding(
               padding: EdgeInsetsDirectional.only(
-                top: 50.h,
                 start: 16.h,
                 end: 16.h,
               ),

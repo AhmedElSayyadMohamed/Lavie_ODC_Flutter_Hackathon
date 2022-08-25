@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lavie/data_layer/bloc/GeneralCubit/general_states.dart';
+import 'package:lavie/data_layer/bloc/profileCubit/profile_cubit.dart';
 import 'package:lavie/data_layer/database/local_database/database_helper.dart';
 import 'package:lavie/data_layer/dio_helper/dio_helper.dart';
 import 'package:lavie/data_layer/dio_helper/end_points.dart';
@@ -28,6 +29,7 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
   int decreaseProductInCard = 0;
   int totalOfPill = 0;
   bool productNotFoundAfterSearch = false;
+  bool searchIsDone = false;
   List<Product> products = [];
   List<dynamic> cardItems = [];
   List<Product> productsSearchResult = [];
@@ -43,9 +45,13 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
 
   ///////////////////////// Methods //////////////////////////////
 
-  Future<void> changeBottomNavBarIndex(index) async {
-    if (index == 0) await getAllBlogs();
+  Future<void> changeBottomNavBarIndex({
+  required int index,
+  required BuildContext context,
 
+}) async {
+    if (index == 0) await getAllBlogs();
+    if(index == 3) await  ProfileCubit.get(context).getUserData();
     currentBottomNavIndex = index;
     emit(ChangeBottomNavIndexState());
   }

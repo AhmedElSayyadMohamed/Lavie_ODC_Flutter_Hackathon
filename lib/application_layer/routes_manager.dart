@@ -4,6 +4,7 @@ import 'package:lavie/presentation_layer/layout/layout.dart';
 import 'package:lavie/presentation_layer/screens/AutinticationScreen/autentication_screen.dart';
 import 'package:lavie/presentation_layer/screens/blogs_details_screen/blog_detail_screen.dart';
 import 'package:lavie/presentation_layer/screens/cart_screen/cart_screen.dart';
+import 'package:lavie/presentation_layer/screens/posts_search_screen/posts_search_screen.dart';
 import 'package:lavie/presentation_layer/screens/search_screen/search_screen.dart';
 import 'package:lavie/presentation_layer/screens/splash_screen/splash_screen.dart';
 
@@ -21,6 +22,7 @@ class Routes {
   static const String scanDetailsRoute = "/scanDetails";
   static const String blogDetailsScreen = "/blogDetailsScreen";
   static const String discussionForums = "/DiscussionForums";
+  static const String postsSearchScreen = "/PostsSearchScreen";
   static const String createPost = "/createPost";
 }
 
@@ -43,6 +45,8 @@ class RoutGenerator {
         return CupertinoPageRoute(builder: (_) => DiscussionForums());
         case Routes.createPost:
         return CupertinoPageRoute(builder: (_) => CreatePostScreen());
+        case Routes.postsSearchScreen:
+        return CupertinoPageRoute(builder: (_) => PostsSearchScreen());
       default:
         return undefinedRoute();
     }

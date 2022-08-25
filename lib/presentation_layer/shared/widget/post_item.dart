@@ -1,6 +1,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:lavie/data_layer/bloc/profileCubit/profile_cubit.dart';
 import 'package:lavie/data_layer/dio_helper/end_points.dart';
 
 
@@ -20,6 +21,7 @@ Widget postItem({
   required VoidCallback onTapUserImage,
   required VoidCallback onTapUserName,
 }) {
+  var cubit =ProfileCubit.get(context);
   return Card(
     child:
     Column(
@@ -131,9 +133,12 @@ Widget postItem({
                   const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                   child: Row(
                     children: [
-                      const Icon(
+                       Icon(
                         Icons.thumb_up_off_alt_outlined,
                         size: 25,
+                        color:cubit.isAddLike?
+                        Theme.of(context).iconTheme.color
+                        :Colors.blue,
                       ),
                       const SizedBox(
                         width: 5,

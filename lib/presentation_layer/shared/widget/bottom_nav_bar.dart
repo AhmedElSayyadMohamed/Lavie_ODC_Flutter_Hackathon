@@ -25,7 +25,7 @@ Widget bottomNavBar({
       ],
 
       onTap: (index) {
-        cubit.changeBottomNavBarIndex(index);
+        cubit.changeBottomNavBarIndex(index: index,context: context);
       },
     ),
   );

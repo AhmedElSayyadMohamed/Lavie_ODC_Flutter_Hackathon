@@ -23,8 +23,9 @@ class ProfileCubit extends Cubit<ProfileStates> {
 
 
   //////// variables////////
-  bool toggleBetweenAllForumAndMyForum = true;
+  bool toggleBetweenAllForumAndMyForum = false;
   bool isImagePicked=false;
+  bool isAddLike=false;
   final ImagePicker _imagePicker = ImagePicker();
   XFile? postImage;
   String? imageBase64;
@@ -35,12 +36,18 @@ class ProfileCubit extends Cubit<ProfileStates> {
     toggleBetweenAllForumAndMyForum = isALlForum;
     emit(ChangeIsAllForumState());
   }
+  void toggleLikeButton() {
+    isAddLike=!isAddLike;
+
+    emit(ChangeAddLikeState());
+  }
 
   void changeState(){
     emit(ChangeState());
   }
 
   //get UserData
+  UserModel? userModel;
   Future<void> getUserData() async {
 
     emit(GetUserDataLoadingState());
@@ -48,7 +55,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
       url: EndPoints.getUserData,
       token: token,
     ).then((value) {
-      UserModel.data = Map<String, dynamic>.from(value.data);
+      userModel=UserModel.fromJson(value.data);
       emit(GetUserDataSuccessState());
     }).catchError((error) {
       print("error When getUserdata :${error.toString()}");
@@ -121,7 +128,6 @@ class ProfileCubit extends Cubit<ProfileStates> {
 
     DioHelper.getData(url:EndPoints.getMyForums,token: token).then((value){
       myPostsModel = MyPostsModel.fromJson(value.data);
-      print(myPostsModel!.data);
       emit(GetMyPostSuccessState());
     }).catchError((error){
       print("error when get MyPosts :${error.toString()}");
@@ -129,6 +135,28 @@ class ProfileCubit extends Cubit<ProfileStates> {
     });
   }
 
+
+  Future addLike({
+        required String postId,
+        String? userId,
+      }) async {
+
+    emit(AddLikeLoadingState());
+
+    print(token);
+    return await DioHelper.postData(
+        url: "${EndPoints.likePost+postId}/like",
+        token:token,
+      ).then((value) {
+
+        getMyPosts();
+      emit(AddLikeSuccessState());
+    }).catchError((error) {
+      print("error when add like :${error.toString()}");
+      emit(AddLikeErrorState());
+    });
+  }
+  //logOut
   void logOut({
   required BuildContext context,
 }){
@@ -145,6 +173,9 @@ class ProfileCubit extends Cubit<ProfileStates> {
       print("error When logOut :${error.toString()}");
     });
   }
+
+
+
 
 }
 

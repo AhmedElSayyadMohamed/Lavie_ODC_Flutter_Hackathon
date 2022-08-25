@@ -9,5 +9,6 @@ static String getProducts = "/api/v1/products";
 static String updateUserData = "/api/v1/user/me";
 static String uploadPost = "/api/v1/forums";
 static String getMyForums = "/api/v1/forums/me";
+static String likePost = "/api/v1/forums/";
 
 }

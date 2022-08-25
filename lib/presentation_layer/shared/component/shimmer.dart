@@ -6,9 +6,9 @@ class ShimmerLoadingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return SafeArea(
-      child:
-      Container(
+    return SingleChildScrollView(
+
+      child: Container(
         color: Colors.brown[50],
         child: Column(
           children: [
@@ -112,7 +112,6 @@ class ShimmerLoadingScreen extends StatelessWidget {
           ],
         ),
       ),
-
     );
 
   }

@@ -30,7 +30,6 @@ class DiscussionForums extends StatelessWidget{
           style: Theme.of(context).appBarTheme.titleTextStyle,
         ),
       ),
-
       floatingActionButton: FloatingActionButton(
         elevation: 10,
         onPressed: () {
@@ -44,17 +43,21 @@ class DiscussionForums extends StatelessWidget{
           listener: (context,state){},
           builder: (context,state){
             var cubit =ProfileCubit.get(context);
-
             return  Padding(
               padding: const EdgeInsets.only(top: 15.0),
               child: Column(
                 children: [
                   SizedBox(
-                    height: MediaQuery.of(context).size.height*0.09,
+                    height:65,
+                    width: double.infinity,
                     child: searchBar(
-                        context: context,
-                      enabled:true,
-                      searchController: postSearchController,
+                      context: context,
+                      onTap: () {
+                        Navigation.navigatorTo(
+                          context: context,
+                          navigatorTo: Routes.postsSearchScreen,
+                        );
+                      }, enabled: false,
                     ),
                   ),
                   Padding(
@@ -111,9 +114,15 @@ class DiscussionForums extends StatelessWidget{
                   Expanded(
                     child:state is GetMyPostLoadingState?
                     const ShimmerLoadingScreen()
+                    :
+                    cubit.toggleBetweenAllForumAndMyForum?
+                   const SizedBox(
+                      child: Center(child: Text("all forums")),
+                    )
                     :ListView.builder(
                       physics: const BouncingScrollPhysics(),
-                        itemBuilder:(context,index)=> postItem(
+                        itemBuilder:(context,index)=>
+                            postItem(
                           context: context,
                           userImage:cubit.myPostsModel!.data![index].user!.imageUrl.toString() ,
                           firstName:cubit.myPostsModel!.data![index].user!.firstName.toString(),
@@ -126,13 +135,15 @@ class DiscussionForums extends StatelessWidget{
                           replies:cubit.myPostsModel!.data![index].forumComments!.length,
                           onTapUserImage: () {  },
                           onTapReplies: () {  },
-                          onTapLike: () {  },
+                          onTapLike: () {
+                            cubit.toggleLikeButton();
+                            cubit.addLike(postId: cubit.myPostsModel!.data![index].forumId.toString(),);
+                          },
                           onTapUserName: () {  },
                         ),
                         itemCount:cubit.myPostsModel!.data!.length,
                     ),
                   ),
-
                 ],
               ),
             );
