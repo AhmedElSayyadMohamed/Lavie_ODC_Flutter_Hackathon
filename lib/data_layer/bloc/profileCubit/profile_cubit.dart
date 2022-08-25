@@ -10,9 +10,9 @@ import 'package:lavie/data_layer/bloc/GeneralCubit/general_cubit.dart';
 import 'package:lavie/data_layer/bloc/profileCubit/profile_states.dart';
 import 'package:lavie/data_layer/cach_helper/cach_helper.dart';
 import 'package:lavie/data_layer/dio_helper/dio_helper.dart';
-import 'package:lavie/presentation_layer/models/my_posts_model.dart';
 import 'package:lavie/presentation_layer/models/user_model.dart';
 import 'package:lavie/presentation_layer/shared/component/default_navigation.dart';
+import '../../../presentation_layer/models/my_posts_model.dart';
 import '../../../presentation_layer/shared/constant/constant.dart';
 import '../../dio_helper/end_points.dart';
 

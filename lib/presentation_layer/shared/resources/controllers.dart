@@ -18,5 +18,7 @@ class AppControllers{
  static var productsSearchController = TextEditingController();
  static var postsSearchController = TextEditingController();
 
+ static var typeCommentController = TextEditingController();
+
 
 }

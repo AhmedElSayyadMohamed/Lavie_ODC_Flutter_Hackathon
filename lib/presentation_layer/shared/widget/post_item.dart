@@ -136,9 +136,9 @@ Widget postItem({
                        Icon(
                         Icons.thumb_up_off_alt_outlined,
                         size: 25,
-                        color:cubit.isAddLike?
-                        Theme.of(context).iconTheme.color
-                        :Colors.blue,
+                        color:cubit.isAddLike
+                            ? Theme.of(context).iconTheme.color
+                            : Colors.blue,
                       ),
                       const SizedBox(
                         width: 5,
