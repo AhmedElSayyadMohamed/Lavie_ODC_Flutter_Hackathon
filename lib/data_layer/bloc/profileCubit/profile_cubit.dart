@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'dart:io' as Io;
 import 'dart:io';
@@ -21,41 +20,40 @@ class ProfileCubit extends Cubit<ProfileStates> {
 
   static ProfileCubit get(BuildContext context) => BlocProvider.of(context);
 
-
   //////// variables////////
   bool toggleBetweenAllForumAndMyForum = false;
-  bool isImagePicked=false;
-  bool isAddLike=false;
+  bool isImagePicked = false;
+  bool isAddLike = false;
   final ImagePicker _imagePicker = ImagePicker();
   XFile? postImage;
   String? imageBase64;
-
 
   //////////////Methods///////////////////
   void toggleBetweenAllForumAndMyForumButton({required bool isALlForum}) {
     toggleBetweenAllForumAndMyForum = isALlForum;
     emit(ChangeIsAllForumState());
   }
+
   void toggleLikeButton() {
-    isAddLike=!isAddLike;
+    isAddLike = !isAddLike;
 
     emit(ChangeAddLikeState());
   }
 
-  void changeState(){
+  void changeState() {
     emit(ChangeState());
   }
 
   //get UserData
   UserModel? userModel;
-  Future<void> getUserData() async {
 
+  Future<void> getUserData() async {
     emit(GetUserDataLoadingState());
     await DioHelper.getData(
       url: EndPoints.getUserData,
       token: token,
     ).then((value) {
-      userModel=UserModel.fromJson(value.data);
+      userModel = UserModel.fromJson(value.data);
       emit(GetUserDataSuccessState());
     }).catchError((error) {
       print("error When getUserdata :${error.toString()}");
@@ -63,13 +61,11 @@ class ProfileCubit extends Cubit<ProfileStates> {
     });
   }
 
-
   Future pickImage() async {
-
     await _imagePicker.pickImage(source: ImageSource.gallery).then((value) {
       postImage = XFile(value!.path);
       final bytes = File(postImage!.path).readAsBytesSync();
-      imageBase64 = "data:image/png;base64,"+base64Encode(bytes);
+      imageBase64 = "data:image/png;base64," + base64Encode(bytes);
       print(imageBase64);
       emit(PickImageSuccessState());
     }).catchError((onError) {
@@ -82,18 +78,20 @@ class ProfileCubit extends Cubit<ProfileStates> {
     required String title,
     required String description,
     required imageBase64,
-  })async{
+  }) async {
     print("token $token");
     emit(UploadPostLoadingState());
     DioHelper.postData(
-        url: EndPoints.uploadPost,token: "Bearer $token", data:{
-      "title": title,
-      "description": description,
-      "imageBase64": imageBase64,
-    }).then((value) {
+        url: EndPoints.uploadPost,
+        token: token,
+        data: {
+          "title": title,
+          "description": description,
+          "imageBase64": imageBase64,
+        }).then((value) {
       print(value);
       emit(UploadPostSuccessState());
-    }).catchError((error){
+    }).catchError((error) {
       print("error when Upload post :${error.toString()}");
       emit(UploadPostErrorState());
     });
@@ -123,61 +121,52 @@ class ProfileCubit extends Cubit<ProfileStates> {
   }
 
   MyPostsModel? myPostsModel;
-  void getMyPosts(){
-     emit(GetMyPostLoadingState());
 
-    DioHelper.getData(url:EndPoints.getMyForums,token: token).then((value){
+  void getMyPosts() {
+    print(token);
+    emit(GetMyPostLoadingState());
+    DioHelper.getData(url: EndPoints.getMyForums, token: token).then((value) {
       myPostsModel = MyPostsModel.fromJson(value.data);
       emit(GetMyPostSuccessState());
-    }).catchError((error){
+    }).catchError((error) {
       print("error when get MyPosts :${error.toString()}");
       emit(GetMyPostErrorState());
     });
   }
 
-
   Future addLike({
-        required String postId,
-        String? userId,
-      }) async {
-
+    required String postId,
+    String? userId,
+  }) async {
     emit(AddLikeLoadingState());
 
     print(token);
     return await DioHelper.postData(
-        url: "${EndPoints.likePost+postId}/like",
-        token:token,
-      ).then((value) {
-
-        getMyPosts();
+      url: "${EndPoints.likePost + postId}/like",
+      token: token,
+    ).then((value) {
+      getMyPosts();
       emit(AddLikeSuccessState());
     }).catchError((error) {
       print("error when add like :${error.toString()}");
       emit(AddLikeErrorState());
     });
   }
+
   //logOut
   void logOut({
-  required BuildContext context,
-}){
-
+    required BuildContext context,
+  }) {
     CachHelper.removeData(key: "token").then((value) {
-      token ="";
+      token = "";
       GeneralLavieCubit.get(context).currentBottomNavIndex = 2;
       GeneralLavieCubit.get(context).filterProductByCategory(0);
       Navigation.navigateAndFinish(
         context: context,
-        navigatorTo:Routes.authenticationRoute,
+        navigatorTo: Routes.authenticationRoute,
       );
-    }).catchError((error){
+    }).catchError((error) {
       print("error When logOut :${error.toString()}");
     });
   }
-
-
-
-
 }
-
-
-

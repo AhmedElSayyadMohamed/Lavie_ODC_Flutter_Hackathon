@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lavie/data_layer/bloc/profileCubit/profile_states.dart';
 import 'package:lavie/presentation_layer/shared/component/default_navigation.dart';
 import 'package:lavie/presentation_layer/shared/widget/create_post_widget.dart';
-
 import '../../../data_layer/bloc/profileCubit/profile_cubit.dart';
 
 class CreatePostScreen extends StatelessWidget{
@@ -39,7 +38,6 @@ class CreatePostScreen extends StatelessWidget{
                onTapOnAddPhoto: (){
                 cubit.pickImage();
                },
-
              ),
            ),
          ),

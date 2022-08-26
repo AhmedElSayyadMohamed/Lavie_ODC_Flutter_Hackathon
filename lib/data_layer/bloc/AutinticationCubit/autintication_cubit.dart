@@ -33,6 +33,7 @@ class AuthenticationCubit extends Cubit<AuthenticationStates> {
     isSignUpSecure = !isSignUpSecure;
     emit(SignUpPasswordSecurityState());
   }
+
   void toggleIsRememberMe() {
     isRememberMe = !isRememberMe;
     emit(ToggleIsRememberMeBoxState());
