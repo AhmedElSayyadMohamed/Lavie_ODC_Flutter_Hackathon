@@ -36,7 +36,6 @@ class ProfileCubit extends Cubit<ProfileStates> {
 
   void toggleLikeButton() {
     isAddLike = !isAddLike;
-
     emit(ChangeAddLikeState());
   }
 
@@ -46,7 +45,6 @@ class ProfileCubit extends Cubit<ProfileStates> {
 
   //get UserData
   UserModel? userModel;
-
   Future<void> getUserData() async {
     emit(GetUserDataLoadingState());
     await DioHelper.getData(
@@ -66,7 +64,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
       postImage = XFile(value!.path);
       final bytes = File(postImage!.path).readAsBytesSync();
       imageBase64 = "data:image/png;base64," + base64Encode(bytes);
-      print(imageBase64);
+      // print(imageBase64);
       emit(PickImageSuccessState());
     }).catchError((onError) {
       print(onError.toString());
@@ -79,7 +77,6 @@ class ProfileCubit extends Cubit<ProfileStates> {
     required String description,
     required imageBase64,
   }) async {
-    print("token $token");
     emit(UploadPostLoadingState());
     DioHelper.postData(
         url: EndPoints.uploadPost,
@@ -98,21 +95,22 @@ class ProfileCubit extends Cubit<ProfileStates> {
   }
 
   Future<void> editUserData({
-    required String firstName,
-    required String lastName,
-    // required String email,
-    // required String address,
+     String? firstName,
+     String? lastName,
+     String? email,
   }) async {
     emit(EditUserDataLoadingState());
     await DioHelper.patchData(
       url: EndPoints.updateUserData,
+      token: token,
       data: {
-        "firstName": "firstName",
+        "firstName": firstName,
         "lastName": lastName,
-        // "email": email,
-        // "address": "tempor elit sed"
+        "email": email,
+        "address": "tempor elit sed"
       },
     ).then((value) {
+      getUserData();
       emit(EditUserDataSuccessState());
     }).catchError((error) {
       print("error When editUserdata :${error.toString()}");
@@ -120,13 +118,14 @@ class ProfileCubit extends Cubit<ProfileStates> {
     });
   }
 
-  MyPostsModel? myPostsModel;
 
+  List<MyPostsModel> posts =[];
   void getMyPosts() {
-    print(token);
     emit(GetMyPostLoadingState());
     DioHelper.getData(url: EndPoints.getMyForums, token: token).then((value) {
-      myPostsModel = MyPostsModel.fromJson(value.data);
+      value.data["data"].forEach((element) {
+        posts.add(MyPostsModel.fromJson(element));
+      });
       emit(GetMyPostSuccessState());
     }).catchError((error) {
       print("error when get MyPosts :${error.toString()}");
@@ -139,8 +138,6 @@ class ProfileCubit extends Cubit<ProfileStates> {
     String? userId,
   }) async {
     emit(AddLikeLoadingState());
-
-    print(token);
     return await DioHelper.postData(
       url: "${EndPoints.likePost + postId}/like",
       token: token,
@@ -153,6 +150,18 @@ class ProfileCubit extends Cubit<ProfileStates> {
     });
   }
 
+
+  searchAboutPost({
+  required String value,
+  required BuildContext context,
+  }
+  ){
+    var cubit = ProfileCubit.get(context);
+    print(cubit.posts.where((element)=>element.data.title.toLowerCase().startsWith(value)).toSet().toList());
+    cubit.posts = cubit.posts.where((element)=>element.data.title.toLowerCase().startsWith(value)).toList();
+    changeState();
+  }
+
   //logOut
   void logOut({
     required BuildContext context,
@@ -160,7 +169,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
     CachHelper.removeData(key: "token").then((value) {
       token = "";
       GeneralLavieCubit.get(context).currentBottomNavIndex = 2;
-      GeneralLavieCubit.get(context).filterProductByCategory(0);
+      GeneralLavieCubit.get(context).filterProductsByCategory(0);
       Navigation.navigateAndFinish(
         context: context,
         navigatorTo: Routes.authenticationRoute,

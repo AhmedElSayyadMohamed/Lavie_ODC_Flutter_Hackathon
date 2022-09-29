@@ -56,7 +56,7 @@ class AuthenticationCubit extends Cubit<AuthenticationStates> {
       token = userDataModel!.data!.accessToken.toString();
 
         ProfileCubit.get(context).getUserData();
-        GeneralLavieCubit.get(context).getProducts();
+        GeneralLavieCubit.get(context).getProducts(context: context);
         GeneralLavieCubit.get(context).getAllBlogs();
       emit(AuthenticationSuccessState(userDataModel));
     }).onError((DioError error, stackTrace) {
@@ -150,7 +150,7 @@ class AuthenticationCubit extends Cubit<AuthenticationStates> {
           token = userDataModel!.data!.accessToken.toString();
 
           ProfileCubit.get(context).getUserData();
-          GeneralLavieCubit.get(context).getProducts();
+          GeneralLavieCubit.get(context).getProducts(context: context);
           GeneralLavieCubit.get(context).getAllBlogs();
         emit(AuthenticationSuccessState(userDataModel));
       }).onError((DioError error, stackTrace) {

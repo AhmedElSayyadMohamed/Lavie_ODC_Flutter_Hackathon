@@ -25,26 +25,15 @@ class SearchScreen extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    IconButton(
-                      padding: EdgeInsets.zero,
-                      splashRadius: 30,
-                      onPressed: () {
-                        Navigation.navigatorBack(context: context);
-                      },
-                      icon: const Icon(Icons.arrow_back),
-                    ),
+                    const BackButton(),
                     Expanded(
-                      child: searchBar(
-                          context: context,
+                      child: CustomSearchBar(
                           enabled: true,
-                          searchController:
-                              AppControllers.productsSearchController,
+                          searchController:AppControllers.productsSearchController,
                           onSubmitted: (value) {
                             if(value.isNotEmpty) {
                               cubit.productsSearchHistory.add(value);
-                              CachHelper.sharedPreferences.setStringList(
-                                  "productSearchHistory",
-                                  cubit.productsSearchHistory);
+                              CachHelper.sharedPreferences.setStringList("productSearchHistory", cubit.productsSearchHistory);
                             }
                             cubit.searchByName(value: value, context: context).then((value) {
                               cubit.productNotFoundAfterSearch =true;

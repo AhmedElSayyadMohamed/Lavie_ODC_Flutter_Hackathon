@@ -23,6 +23,7 @@ Widget postItem({
 }) {
   var cubit =ProfileCubit.get(context);
   return Card(
+    elevation: 2,
     child:
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,7 +170,6 @@ Widget postItem({
             ],
           ),
         ),
-
       ],
     ),
   );

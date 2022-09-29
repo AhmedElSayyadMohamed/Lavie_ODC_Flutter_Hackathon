@@ -24,7 +24,8 @@ class DioHelper {
       url!,
       queryParameters: query,
       options: Options(headers: {
-        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
+        'Authorization':"Bearer $token",
       }),
     );
   }
@@ -65,13 +66,11 @@ class DioHelper {
   static Future<Response> patchData({
     required String url,
     required Map<String, dynamic> data,
-    String lang = 'ar',
     String? token,
   }) async {
     dio!.options.headers = {
       'Content-Type': 'application/json',
-      'lang': lang,
-      'Authorization': token ?? '',
+      'Authorization':"Bearer ${token ?? ''}",
     };
     return await dio!.patch(
       url,

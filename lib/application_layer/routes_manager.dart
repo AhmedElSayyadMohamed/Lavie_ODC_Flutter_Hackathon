@@ -2,14 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lavie/presentation_layer/layout/layout.dart';
 import 'package:lavie/presentation_layer/screens/AutinticationScreen/autentication_screen.dart';
-import 'package:lavie/presentation_layer/screens/blogs_details_screen/blog_detail_screen.dart';
 import 'package:lavie/presentation_layer/screens/cart_screen/cart_screen.dart';
-import 'package:lavie/presentation_layer/screens/posts_search_screen/posts_search_screen.dart';
 import 'package:lavie/presentation_layer/screens/search_screen/search_screen.dart';
 import 'package:lavie/presentation_layer/screens/splash_screen/splash_screen.dart';
-
 import '../presentation_layer/screens/create_post_screen/create_post_screen.dart';
 import '../presentation_layer/screens/discussion_forums_screen/discussion_forums_screen.dart';
+
 
 class Routes {
   static const String splashRoute = "/";
@@ -29,24 +27,22 @@ class Routes {
 class RoutGenerator {
   static Route<dynamic> getRoute(RouteSettings setting) {
     switch (setting.name) {
+
       case Routes.splashRoute:
-        return MaterialPageRoute(builder: (_) => SplashScreen());
+      return MaterialPageRoute(builder: (_) => SplashScreen());
       case Routes.authenticationRoute:
-        return MaterialPageRoute(builder: (_) => AuthenticationScreen());
+      return MaterialPageRoute(builder: (_) => AuthenticationScreen());
       case Routes.layoutRoute:
-        return MaterialPageRoute(builder: (_) => LayoutScreen());
-
+      return MaterialPageRoute(builder: (_) => const LayoutScreen());
       case Routes.searchRoute:
-        return CupertinoPageRoute(builder: (_) => SearchScreen());
-        case Routes.cartRoute:
-        return CupertinoPageRoute(builder: (_) => CardScreen());
+      return CupertinoPageRoute(builder: (_) => SearchScreen());
+      case Routes.cartRoute:
+      return CupertinoPageRoute(builder: (_) => CardScreen());
+      case Routes.discussionForums:
+      return CupertinoPageRoute(builder: (_) => DiscussionForums());
+      case Routes.createPost:
+      return CupertinoPageRoute(builder: (_) => CreatePostScreen());
 
-        case Routes.discussionForums:
-        return CupertinoPageRoute(builder: (_) => DiscussionForums());
-        case Routes.createPost:
-        return CupertinoPageRoute(builder: (_) => CreatePostScreen());
-        case Routes.postsSearchScreen:
-        return CupertinoPageRoute(builder: (_) => PostsSearchScreen());
       default:
         return undefinedRoute();
     }
@@ -55,7 +51,10 @@ class RoutGenerator {
   static Route<dynamic> undefinedRoute() {
     return MaterialPageRoute(
         builder: (_) => const Scaffold(
-              body: Center(child: Text("undefinedRoute")),
-            ));
+              body: Center(
+                  child: Text("undefinedRoute"),
+              ),
+            ),
+    );
   }
 }

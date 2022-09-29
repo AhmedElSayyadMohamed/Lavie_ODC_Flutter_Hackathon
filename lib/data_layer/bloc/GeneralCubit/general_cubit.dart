@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lavie/data_layer/bloc/GeneralCubit/general_states.dart';
 import 'package:lavie/data_layer/bloc/profileCubit/profile_cubit.dart';
+import 'package:lavie/data_layer/cach_helper/cach_helper.dart';
 import 'package:lavie/data_layer/database/local_database/database_helper.dart';
 import 'package:lavie/data_layer/dio_helper/dio_helper.dart';
 import 'package:lavie/data_layer/dio_helper/end_points.dart';
 import 'package:lavie/presentation_layer/models/product_model.dart';
+import 'package:lavie/presentation_layer/screens/AutinticationScreen/autentication_screen.dart';
 import 'package:lavie/presentation_layer/screens/blogs_Screen/blogs_screen.dart';
 import 'package:lavie/presentation_layer/screens/home_screen/home_screen.dart';
 import 'package:lavie/presentation_layer/screens/notification_screen/notification_screen.dart';
@@ -17,9 +19,7 @@ import '../../../presentation_layer/models/blog_model.dart';
 
 class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
   GeneralLavieCubit() : super(InitialState());
-
-  static GeneralLavieCubit get(BuildContext context) =>
-      BlocProvider.of(context);
+  static GeneralLavieCubit get(BuildContext context) => BlocProvider.of(context);
 
   /////////////////////////////// variables ///////////////////////
 
@@ -39,17 +39,13 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
     BlogsScreen(),
     const ScanScreen(),
     HomeScreen(),
-    NotificationScreen(),
-    ProfileScreen(),
+    const NotificationScreen(),
+    const ProfileScreen(),
   ];
 
   ///////////////////////// Methods //////////////////////////////
 
-  Future<void> changeBottomNavBarIndex({
-  required int index,
-  required BuildContext context,
-
-}) async {
+  Future<void> changeBottomNavBarIndex({required int index, required BuildContext context}) async {
     if (index == 0) await getAllBlogs();
     if(index == 3) await  ProfileCubit.get(context).getUserData();
     currentBottomNavIndex = index;
@@ -57,9 +53,9 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
   }
 
   //filter product by category
-  void filterProductByCategory(index) {
+  void filterProductsByCategory(index) {
     filterCategoryButtonIndex = index;
-
+    emit(GetProductsLoadingState());
     if (index == 0) {
       products = [];
       products.addAll(ProductModel.allProduct);
@@ -74,7 +70,6 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
       products = [];
       products.addAll(ProductModel.tools);
     }
-
     emit(ChangeCategoryIndexState());
   }
 
@@ -165,7 +160,6 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
 
   //getBLogs
   BlogDataModel? blogsModel;
-
   Future<void> getAllBlogs() async {
     emit(GetAllBlogsLoadingState());
     await DioHelper.getData(
@@ -181,19 +175,26 @@ class GeneralLavieCubit extends Cubit<GeneralLavieStates> {
   }
 
   //getProducts
-  Future<void> getProducts() async {
+  Future<void> getProducts({
+  required BuildContext context,
+}) async {
     emit(GetProductsLoadingState());
     await DioHelper.getData(
       url: EndPoints.getProducts,
-      token: token,
+      token:token,
     ).then((value) {
-      products = [];
       ProductModel.fromJson(value.data);
+      if(value.data["statusCode"]==401){
+        token ="";
+        CachHelper.removeData(key: "token").then((value) {
+         Navigator.push(context, MaterialPageRoute(builder: (context)=>AuthenticationScreen()));
+        });
+      }
       products = ProductModel.allProduct;
       emit(GetProductsSuccessState());
     }).catchError((error) {
-      debugPrint("error When GetProducts :${error.toString()}");
-      emit(GetProductsErrorState());
+           debugPrint("error when get products :${error.toString()}");
+           emit(GetProductsErrorState());
     });
   }
 

@@ -7,48 +7,31 @@ import 'package:lavie/data_layer/cach_helper/cach_helper.dart';
 import 'package:lavie/presentation_layer/shared/component/default_navigation.dart';
 import 'package:lavie/presentation_layer/shared/resources/assets_manger.dart';
 import 'package:lavie/presentation_layer/shared/widget/card_botton.dart';
+import 'package:lavie/presentation_layer/shared/widget/custom_app_bar/custom_app_bar.dart';
+import 'package:lavie/presentation_layer/shared/widget/custom_circle_progress_indicator/circle_progress_indicator.dart';
+import 'package:lavie/presentation_layer/shared/widget/exams_button/exams_button.dart';
 import 'package:lavie/presentation_layer/shared/widget/gredview_of_products.dart';
 import 'package:lavie/presentation_layer/shared/widget/search_bar.dart';
 import '../../../application_layer/routes_manager.dart';
-import '../../shared/widget/category_list_view.dart';
+import '../../shared/widget/products_categories/products_categories.dart';
 
 class HomeScreen extends StatelessWidget {
-
+  final search =TextEditingController();
+  HomeScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<GeneralLavieCubit, GeneralLavieStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        var cubit =GeneralLavieCubit.get(context);
+        var cubit = GeneralLavieCubit.get(context);
         return Scaffold(
-          appBar: AppBar(
-            actions: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5),
-                child: InkWell(
-                  onTap: (){
-
-                  },
-                  child: SizedBox(
-                    height: 30.0,
-                    width: 30.0,
-                    child: FittedBox(
-                      child: FloatingActionButton(
-                        onPressed: () {},
-                        child:Icon(
-                          Icons.question_mark_outlined,
-                        ),
-                        mini: true,
-                        backgroundColor: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-
+          appBar: CustomAppBar(
+            action: [
+              ExamsButton(
+                onTap: () {},
+              )
             ],
           ),
-          backgroundColor: Theme.of(context).backgroundColor,
           body: SafeArea(
             child: Padding(
               padding: EdgeInsetsDirectional.only(
@@ -56,61 +39,48 @@ class HomeScreen extends StatelessWidget {
                 end: 16.h,
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                   Padding(
-                    padding: EdgeInsetsDirectional.only(
-                      bottom: 30.h,
-                    ),
-                    child: Image.asset(AssetsManager.appLogo),
+                  Image.asset(AssetsManager.appLogo),
+                  SizedBox(
+                    height: 40.h,
                   ),
-                   const SizedBox(
-                  height: 10,
-                ),
-                   Row(
+                  Row(
                     children: [
                       Expanded(
-                        child: searchBar(
-                          context: context,
+                        child: CustomSearchBar(
+                          enabled: false,
                           onTap: () {
-                            cubit.productsSearchHistory =
-                                 CachHelper.sharedPreferences.getStringList("productSearchHistory")??[];
-
-                            Navigation.navigatorTo(
+                                cubit.productsSearchHistory =
+                                CachHelper.sharedPreferences.getStringList("productSearchHistory") ??[];
+                                Navigation.navigatorTo(
                               context: context,
                               navigatorTo: Routes.searchRoute,
                             );
-                          }, enabled: false,
+                          }, searchController: search,
                         ),
                       ),
-                      cardBotton(
-                        context: context,
+                      CustomCardButton(
                         onTap: () {
                           Navigation.navigatorTo(
-                              context: context,
-                               navigatorTo: Routes.cartRoute,
-                              );
+                            context: context,
+                            navigatorTo: Routes.cartRoute,
+                          );
                         },
                       ),
                     ],
                   ),
-                   SizedBox(
-                     height: 25.h,
-                   ),
-                   categoryListView(context: context),
-                   SizedBox(
-                     height: 20.h,
-                   ),
-                   Expanded(
-                     child: state is GetProductsLoadingState ?
-                     Center(
-                       child: CircularProgressIndicator(
-                         color: Theme.of(context).primaryColor,
-                       ),
-                     ) :
-                     greViewOfProducts(context: context),
-                   ),
+                  SizedBox(
+                    height: 25.h,
+                  ),
+                  const ProductHomeCategories(),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Expanded(
+                    child: state is GetProductsLoadingState
+                        ? const CustomCircleProgressIndicator()
+                        : const ProductGridView(),
+                  ),
                 ],
               ),
             ),
@@ -119,5 +89,4 @@ class HomeScreen extends StatelessWidget {
       },
     );
   }
-  }
-
+}

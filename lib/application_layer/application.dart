@@ -18,13 +18,14 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) =>
-          AuthenticationCubit()..getLoginDataFromDataBase(),
+          AuthenticationCubit()..
+          getLoginDataFromDataBase(),
         ),
         BlocProvider(
           create: (context) =>
           GeneralLavieCubit()..
           initProductDatabase()..
-          getProducts(),
+          getProducts(context: context),
         ),
         BlocProvider(
           create: (context) =>
