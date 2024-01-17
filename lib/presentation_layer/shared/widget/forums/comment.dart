@@ -42,7 +42,7 @@ class CommentModelSheet extends StatelessWidget{
                         .toString(),
                     notificationMassege: cubit.posts[index].data.forumComments![index].comment
                         .toString(),
-                    notificationDate: Jiffy(cubit.posts[index].data.forumComments![index].createdAt)
+                    notificationDate: Jiffy.parse(cubit.posts[index].data.forumComments![index].createdAt!)
                         .yMMMMd,
                   ),
                   separatorBuilder: (context, index) => const SizedBox(

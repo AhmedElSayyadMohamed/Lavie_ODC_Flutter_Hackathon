@@ -35,7 +35,7 @@ class NotificationScreen extends StatelessWidget {
                     context: context,
                     imageURL:cubit.userModel!.data!.userNotification![index].imageUrl.toString() ,
                     notificationMassege:cubit.userModel!.data!.userNotification![index].message.toString()  ,
-                    notificationDate: Jiffy(cubit.userModel!.data!.userNotification![index].createdAt.toString()).yMMMMd
+                    notificationDate: Jiffy.parse(cubit.userModel!.data!.userNotification![index].createdAt.toString()).yMMMMd
 
 
                   ),

@@ -3,10 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class ScanDetailsScreen extends StatelessWidget {
+  const ScanDetailsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 15.w),
         child: Column(
@@ -24,9 +25,9 @@ class ScanDetailsScreen extends StatelessWidget {
   }
 }
 void _showButtonPressDialog(BuildContext context, String provider) {
-  Scaffold.of(context).showSnackBar(SnackBar(
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     content: Text('$provider Button Pressed!'),
     backgroundColor: Colors.black26,
-    duration: Duration(milliseconds: 400),
+    duration: const Duration(milliseconds: 400),
   ));
 }

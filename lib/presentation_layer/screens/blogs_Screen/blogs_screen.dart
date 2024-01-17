@@ -41,6 +41,7 @@ class BlogsScreen extends StatelessWidget {
                   description: cubit.blogsModel!.data!.blogs[index].description,
                   date: "2 Day ago",
                   onTap: () {
+                    print(cubit.blogsModel!.data!.blogs[index].imageUrl );
                  Navigator.push(context,
                      CupertinoPageRoute(builder: (_) => BlogDetailsScreen(
                    imageUrl: cubit.blogsModel!.data!.blogs[index].imageUrl ,
