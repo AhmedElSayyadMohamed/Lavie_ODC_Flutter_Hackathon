@@ -41,11 +41,18 @@ make every corner a green oasis.
 
 <img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/7d994402-2d65-4590-973b-e2b8dcf1d9ea"  alter= 'homeScreen' width="340" height ="680">
 
+<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/69e216bd-75a5-431b-a616-6deacaebf281"  alter= 'homeScreen' width="340" height ="680">
+
 <img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/86efa4b5-98c4-425a-958a-ed01b8b15019"  alter= 'homeScreen' width="340" height ="680">
 
 <img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/d2e6112f-8c52-454e-b359-80d83d222949"  alter= 'homeScreen' width="340" height ="680">
 
-<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/69e216bd-75a5-431b-a616-6deacaebf281"  alter= 'homeScreen' width="340" height ="680">
 
+<h3> Card Screens </h3>
 
+<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/63708b41-2f61-4dd9-ad09-2c2ea5aaef8d"  alter= 'homeScreen' width="340" height ="680">
+
+<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/a09ec0f7-c43c-44a6-be00-93e83a85dfa4"  alter= 'homeScreen' width="340" height ="680">
+
+<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/d6f27dd1-446c-424e-8de4-8f3b22432acd"  alter= 'homeScreen' width="340" height ="680">
 
