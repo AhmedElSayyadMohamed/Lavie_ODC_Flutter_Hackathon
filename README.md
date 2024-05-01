@@ -54,11 +54,13 @@
 
 <h3> Card Screens </h3>
 
-<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/63708b41-2f61-4dd9-ad09-2c2ea5aaef8d"  alter= 'homeScreen' width="280">
+<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/d6f27dd1-446c-424e-8de4-8f3b22432acd"  alter= 'homeScreen' width="280">
 
 <img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/a09ec0f7-c43c-44a6-be00-93e83a85dfa4"  alter= 'homeScreen' width="280">
 
-<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/d6f27dd1-446c-424e-8de4-8f3b22432acd"  alter= 'homeScreen' width="280">
+<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/63708b41-2f61-4dd9-ad09-2c2ea5aaef8d"  alter= 'homeScreen' width="280">
+
+
 
 <h3> Search Screens </h3>
 
