@@ -15,7 +15,7 @@
 
 <h2> Using Consepts : </h2>
 
-<h3> MVVM as Archticture Pattrn</h3> 
+<h3> MVVM as Archticture Pattern</h3> 
 <h3> Cubit as state management </h3> 
 <h3>🌐 RestAPI's to get Data From Server </h3> 
 <h3>📊 Sqflite to save items to Card and Save Search About item Operation</h3> 
