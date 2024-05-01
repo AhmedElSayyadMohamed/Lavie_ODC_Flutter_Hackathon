@@ -1,5 +1,5 @@
 <h1> 🌱ODC Flutter Hackathon: LaVie App 🌿 </h1>
-<b> Lavie is A Planet Application developed by Flutter Technology  is An E_Commerce App To Display Differrent Types Of Planet and you can add it to Card to Buy It And there are A Partition to Social Media To discuss with other about that </b>
+<b> Lavie is A Planet Mobile App developed by Flutter is An E_Commerce App To Display Differrent Types Of Planets and you can add it to Card to Buy It And there are A Partition to Social Media To discuss with other about that </b>
 
 <h2> App Features: </h2>
 
