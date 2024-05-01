@@ -60,3 +60,18 @@
 
 <img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/d6f27dd1-446c-424e-8de4-8f3b22432acd"  alter= 'homeScreen' width="280">
 
+<h3> Search Screens </h3>
+
+<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/9a9482a0-ea26-4f46-a793-9f41134a9b7b"  alter= 'homeScreen' width="280">
+
+<h3> Edit Profile Screens </h3>
+
+<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/bf1040f0-f977-472f-be03-61440ea10bc6"  alter= 'homeScreen' width="280">
+<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/8c76c60d-deae-4b94-b880-a8a3a3e93dbf"  alter= 'homeScreen' width="280">
+
+
+<h3> Socail Screens </h3>
+
+<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/8a01af27-c282-40c3-93a5-035be5dafaa5"  alter= 'homeScreen' width="280">
+<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/cc980c8b-7253-4197-b203-8e96c3d406fe"  alter= 'homeScreen' width="280">
+
