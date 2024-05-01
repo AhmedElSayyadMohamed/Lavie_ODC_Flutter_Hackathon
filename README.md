@@ -1,22 +1,26 @@
-# <h1> Lavie App </h1>
+<h1> 🌱ODC Flutter Hackathon: LaVie App 🌿 </h1>
+<b> Lavie is A Planet Application developed by Flutter Technology  is An E_Commerce App To Display Differrent Types Of Planet and you can add it to Card to Buy It And there are A Partition to Social Media To discuss with other about that </b>
 
-🌱 Thrilled to unveil our brainchild from last year's ODC Flutter Hackathon: LaVie App! 🌿
+<h2> App Features: </h2>
 
- LaVie is your companion in nurturing a world abundant with lush greenery.
+<h3>🌿 Animated Splash Screen </h3> 
+<h3>🔒 Authentication </h3> 
+<h3>🌱 Display plants and tools of farmer , add and remove from CartScreen To Buy It </h3> 
+<h3>🌱 Blogs feature that makes you know more information about each plant </h3> 
+<h3>🌱 Filteration on planet in HomeScreen</h3> 
+<h3>🔔 Notifications </h3> 
+<h3>🔍 Search </h3> 
+<h3>👤 Profile</h3> 
+<h3>💬 Forums </h3> 
 
-Features:
-🌺 Splash Screen: A warm welcome to LaVie, inviting users into a world of green possibilities.
-🔒 Authentication: Secure access for personalized plant care experiences.
-🌐 RestAPI's: Seamless integration for real-time updates and functionalities.
-📊 Sqflite: Efficient local storage for smoother user interactions.
-🔍 Search: Effortlessly discover your favorite plants or explore new varieties.
-🌿 Category: Organize and browse plants by categories, simplifying navigation.
-👤 Profile: Customize your LaVie journey and track your green milestones.
-💬 Forums: Engage with like-minded plant lovers, sharing tips and stories.
-🔔 Notifications: Stay informed with timely reminders and community updates.
+<h2> Using Consepts : </h2>
 
-Experience our Flutter-powered pages and join us in cultivating a greener tomorrow with LaVie! Let's
-make every corner a green oasis.
+<h3> MVVM as Archticture Pattrn</h3> 
+<h3> Cubit as state management </h3> 
+<h3>🌐 RestAPI's to get Data From Server </h3> 
+<h3>📊 Sqflite to save items to Card and Save Search About item Operation</h3> 
+
+
 
 <h2>Lavie App UI </h2>
 
