@@ -22,37 +22,37 @@ make every corner a green oasis.
 
 <h3> Authentication Screens </h3>
 
-<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/cc0b92dd-4394-402d-a4a8-aa0862af4ad3" alter ='auth_register'  width="340" height ="680">
+<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/cc0b92dd-4394-402d-a4a8-aa0862af4ad3" alter ='auth_register'  width="280">
 
-<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/47f81426-e870-412a-b2fe-ba6af07100b5" alter ='auth_login' width="340" height ="680">
+<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/47f81426-e870-412a-b2fe-ba6af07100b5" alter ='auth_login' width="280">
 
 <h3> Main NavBarButton Screens </h3>
 
-<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/90423875-4ecc-430d-9e26-17ca80ef95e1"  alter= 'homeScreen' width="340" height ="680">
+<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/90423875-4ecc-430d-9e26-17ca80ef95e1"  alter= 'homeScreen' width="280">
 
-<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/4d96e6ec-cb02-4481-ae83-f55dbf4b3aa9"  alter= 'homeScreen' width="340" height ="680">
+<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/4d96e6ec-cb02-4481-ae83-f55dbf4b3aa9"  alter= 'homeScreen' width="280">
 
-<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/25a50629-3ac5-498c-bca4-26246e259907"  alter= 'homeScreen' width="340" height ="680">
+<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/25a50629-3ac5-498c-bca4-26246e259907"  alter= 'homeScreen' width="280">
 
-<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/5f0f75d9-c628-468a-9b52-0d5fd170870d"  alter= 'homeScreen' width="340" height ="680">
+<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/5f0f75d9-c628-468a-9b52-0d5fd170870d"  alter= 'homeScreen' width="280">
 
 
 <h3> Blogs Screens </h3>
 
-<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/7d994402-2d65-4590-973b-e2b8dcf1d9ea"  alter= 'homeScreen' width="340" height ="680">
+<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/7d994402-2d65-4590-973b-e2b8dcf1d9ea"  alter= 'homeScreen' width="280">
 
-<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/69e216bd-75a5-431b-a616-6deacaebf281"  alter= 'homeScreen' width="340" height ="680">
+<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/69e216bd-75a5-431b-a616-6deacaebf281"  alter= 'homeScreen' width="280">
 
-<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/86efa4b5-98c4-425a-958a-ed01b8b15019"  alter= 'homeScreen' width="340" height ="680">
+<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/86efa4b5-98c4-425a-958a-ed01b8b15019"  alter= 'homeScreen' width="280">
 
-<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/d2e6112f-8c52-454e-b359-80d83d222949"  alter= 'homeScreen' width="340" height ="680">
+<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/d2e6112f-8c52-454e-b359-80d83d222949"  alter= 'homeScreen' width="280">
 
 
 <h3> Card Screens </h3>
 
-<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/63708b41-2f61-4dd9-ad09-2c2ea5aaef8d"  alter= 'homeScreen' width="340" height ="680">
+<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/63708b41-2f61-4dd9-ad09-2c2ea5aaef8d"  alter= 'homeScreen' width="280">
 
-<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/a09ec0f7-c43c-44a6-be00-93e83a85dfa4"  alter= 'homeScreen' width="340" height ="680">
+<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/a09ec0f7-c43c-44a6-be00-93e83a85dfa4"  alter= 'homeScreen' width="280">
 
-<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/d6f27dd1-446c-424e-8de4-8f3b22432acd"  alter= 'homeScreen' width="340" height ="680">
+<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/d6f27dd1-446c-424e-8de4-8f3b22432acd"  alter= 'homeScreen' width="280">
 
