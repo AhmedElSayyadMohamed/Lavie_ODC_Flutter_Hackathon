@@ -22,6 +22,7 @@ make every corner a green oasis.
 
 <h4> Authentication </h4>
 
-src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/cc0b92dd-4394-402d-a4a8-aa0862af4ad3" alter ='auth_register' width="360"> 
-src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/47f81426-e870-412a-b2fe-ba6af07100b5" alter ='[auth_login' width="360"> 
+<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/cc0b92dd-4394-402d-a4a8-aa0862af4ad3" alter ='auth_register' alter= 'homeScreen' width="340" height ="680">
+
+<img src="https://github.com/AhmedElSayyadMohamed/Lavie_ODC_Flutter_Hackathon/assets/74414358/47f81426-e870-412a-b2fe-ba6af07100b5" alter ='auth_login' alter= 'homeScreen' width="340" height ="680">
 
