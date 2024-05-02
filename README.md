@@ -13,7 +13,7 @@
 <h3>👤 Profile</h3> 
 <h3>💬 Forums </h3> 
 
-<h2> Using Consepts : </h2>
+<h2> Using Concepts : </h2>
 
 <h3> MVVM as Archticture Pattern</h3> 
 <h3> Cubit as state management </h3> 
