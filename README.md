@@ -1,5 +1,5 @@
 <h1> 🌱ODC Flutter Hackathon: LaVie App 🌿 </h1>
-<b> Lavie is A Plants Mobile App developed by Flutter is An E_Commerce App To Display Differrent Types Of Planets and you can add it to Card to Buy It And there are A Partition to Social Media To discuss with other about that </b>
+<b> Lavie is A Plants Mobile App developed by Flutter is An E_Commerce App To Display Differrent Types Of Plants and you can add it to Card to Buy It And there are A Partition to Social Media To discuss with other about that </b>
 
 <h2> App Features: </h2>
 
@@ -7,7 +7,7 @@
 <h3>🔒 Authentication </h3> 
 <h3>🌱 Display plants and tools of farmer , add and remove from CartScreen To Buy It </h3> 
 <h3>🌱 Blogs feature that makes you know more information about each plant </h3> 
-<h3>🌱 Filteration on planet in HomeScreen</h3> 
+<h3>🌱 Filteration on plant in HomeScreen</h3> 
 <h3>🔔 Notifications </h3> 
 <h3>🔍 Search </h3> 
 <h3>👤 Profile</h3> 
